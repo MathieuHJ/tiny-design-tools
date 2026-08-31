@@ -1,0 +1,9 @@
+packages:
+  - tools/*
+
+onlyBuiltDependencies:
+  - esbuild
+
+confirmModulesPurge: false
+allowBuilds:
+  esbuild: true

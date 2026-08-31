@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.DS_Store
+release/.capture-video/
+release/qa/
+release/qa-black-white/
+design-qa.md
