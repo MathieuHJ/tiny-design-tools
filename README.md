@@ -8,7 +8,12 @@ The root gallery is the collection index. Every tool also has a permanent direct
 
 The collection follows a permanent [black-and-white interface system](./DESIGN-SYSTEM.md): small type, hairline structure, minimal persistent copy, and the user's work kept visually dominant.
 
-## Released locally
+## Use it
+
+- [Open the collection](https://mathieuhj.github.io/tiny-design-tools/)
+- [Open Crop Proof directly](https://mathieuhj.github.io/tiny-design-tools/crop-proof/)
+
+## Released
 
 | Tool | Input | Manipulation | Export |
 |---|---|---|---|
@@ -21,7 +26,7 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://127.0.0.1:5173/crop-proof/`. The root URL contains the gallery.
+Open `http://127.0.0.1:5173/crop-proof/`. The root URL contains the gallery. The public build is deployed automatically from `main` by GitHub Actions.
 
 ## Validate it
 

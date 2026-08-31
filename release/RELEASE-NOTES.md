@@ -1,6 +1,6 @@
 # Crop Proof v0.1 release review
 
-Prepared locally on 31 August 2026. Nothing has been pushed, published, deployed, or posted.
+Published on 31 August 2026 at [mathieuhj.github.io/tiny-design-tools](https://mathieuhj.github.io/tiny-design-tools/). Source is public at [github.com/MathieuHJ/tiny-design-tools](https://github.com/MathieuHJ/tiny-design-tools). The prepared X draft has not been posted.
 
 ## What works
 
@@ -66,4 +66,4 @@ Crop Proof preserves a focal point rather than subject bounds. A large subject c
 
 ## Review decision
 
-Mathieu owns approval of this local release, creation or selection of the public GitHub remote, GitHub Pages deployment, and posting to X. The implementation produced no evidence requiring a roadmap score, V1 scope, or release-order change.
+Mathieu approved the public repository and GitHub Pages deployment. Posting to X remains a separate approval. The implementation produced no evidence requiring a roadmap score, V1 scope, or release-order change.
