@@ -13,6 +13,7 @@ export default defineConfig({
       input: {
         gallery: resolve(import.meta.dirname, 'index.html'),
         cropProof: resolve(import.meta.dirname, 'crop-proof/index.html'),
+        copyStress: resolve(import.meta.dirname, 'copy-stress/index.html'),
       },
     },
   },

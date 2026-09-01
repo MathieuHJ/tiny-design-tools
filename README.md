@@ -12,12 +12,14 @@ The collection follows a permanent [black-and-white interface system](./DESIGN-S
 
 - [Open the collection](https://mathieuhj.github.io/tiny-design-tools/)
 - [Open Crop Proof directly](https://mathieuhj.github.io/tiny-design-tools/crop-proof/)
+- [Open Copy Stress directly](https://mathieuhj.github.io/tiny-design-tools/copy-stress/)
 
 ## Released
 
 | Tool | Input | Manipulation | Export |
 |---|---|---|---|
 | [Crop Proof](./tools/crop-proof/README.md) | PNG, JPEG, or WebP | One linked focal point across six fixed crops | 1280 × 640 PNG crop sheet and CSS `object-position` |
+| [Copy Stress](./tools/copy-stress/README.md) | A live page via bookmarklet | Apply hostile copy modes | 1280 × 640 PNG diagnostic proof |
 
 ## Run it
 
@@ -26,7 +28,7 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://127.0.0.1:5173/crop-proof/`. The root URL contains the gallery. The public build is deployed automatically from `main` by GitHub Actions.
+Open `http://127.0.0.1:5173/crop-proof/` or `http://127.0.0.1:5173/copy-stress/`. The root URL contains the gallery. The public build is deployed automatically from `main` by GitHub Actions.
 
 ## Validate it
 
