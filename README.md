@@ -55,6 +55,10 @@ GitHub Pages builds use the repository name supplied by GitHub as the Vite base 
 
 User files are decoded with browser APIs and remain on the device. The project contains no telemetry, upload endpoint, account system, cookies, or remote font requests.
 
+## Contributing
+
+See the [contributor guide](./CONTRIBUTING.md) for local setup, validation, browser checks, and safe bug reports.
+
 ## License
 
 Project code and original synthetic fixtures are available under the [MIT License](./LICENSE). Direct runtime dependencies are MIT-licensed. The local development toolchain uses MIT and Apache-2.0 packages; details are in [THIRD_PARTY_LICENSES.md](./THIRD_PARTY_LICENSES.md).
