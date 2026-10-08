@@ -38,7 +38,13 @@ For interface changes, also check:
 - Invalid input and reset behaviour where relevant.
 - No new upload or telemetry requests when manipulating user input.
 
-Optional release captures:
+To regenerate the proof frames used by the gallery and READMEs, and confirm each is exactly 1280 × 640:
+
+```sh
+pnpm capture:proofs
+```
+
+Optional release captures with video:
 
 ```sh
 pnpm capture
@@ -46,6 +52,16 @@ pnpm capture:copy-stress
 ```
 
 These scripts build and exercise the tools in a browser and write release artifacts. If Playwright reports a missing Chromium binary, install it with `pnpm exec playwright install chromium` and retry. Review generated files before including them in a PR.
+
+## Adding a tool
+
+After the idea is agreed in an issue:
+
+1. Create `tools/<id>/` with its own `main.tsx`, component, styles, tests, and `README.md`. Import `src/tokens.css` first and keep tool-specific rules in the tool's own stylesheet.
+2. Add one entry to `TOOLS` and the id to `ToolId` in `src/tools.ts`. The gallery, header, and footer read from it.
+3. Add `<id>/index.html` (copy an existing one and change the title, description, canonical URL, and script path) and register it in the `input` list in `vite.config.ts`.
+4. Use `ToolHeader` and `ToolFooter` from `src/ToolChrome.tsx`, and the shared helpers in `src/` for copying, downloading, and image intake.
+5. Add the tool to `scripts/capture-proofs.mjs` so its proof frame is generated through the real export button, and add it to the gallery's `PREVIEWS` map.
 
 ## Report a bug safely
 

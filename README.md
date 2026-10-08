@@ -28,7 +28,7 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://127.0.0.1:5173/crop-proof/` or `http://127.0.0.1:5173/copy-stress/`. The root URL contains the gallery. The public build is deployed automatically from `main` by GitHub Actions.
+Open `http://127.0.0.1:5173/crop-proof/` or `/copy-stress/`. The root URL contains the gallery. The public build is deployed automatically from `main` by GitHub Actions.
 
 ## Validate it
 
@@ -37,17 +37,17 @@ pnpm check
 pnpm capture
 ```
 
-`pnpm check` runs lint, three representative tests, TypeScript, and the production build. `pnpm capture` rebuilds the site, runs the real browser interaction, exports the proof frame, and prepares a 9-second release capture in `release/`.
+`pnpm check` runs lint, the test suite, TypeScript, and the production build. `pnpm capture:proofs` drives each tool in a real browser, uses its own export button, and checks that every proof frame is exactly 1280 × 640. `pnpm capture` and `pnpm capture:copy-stress` also prepare a release video.
 
 ## Repository shape
 
-- `src/`: independent gallery entry point and site styling
+- `src/`: the gallery, plus the code every tool shares: design tokens and page chrome (`tokens.css`, `ToolChrome.tsx`), the tool registry (`tools.ts`), and small helpers for copying, downloading, and image intake
 - `tools/`: one isolated folder and application entry point per released tool
-- `crop-proof/`: static deep-link entry for GitHub Pages
+- `crop-proof/`, `copy-stress/`: static deep-link entries for GitHub Pages
 - `release/`: reviewed release media and draft copy
 - `DESIGN-SYSTEM.md`: visual rules shared by every tool
 
-Shared abstractions will be added only after a second tool demonstrates a real repeated need.
+A tool's name, number, and summary live once in `src/tools.ts`. The gallery, headers, and footers all read from it, so adding a tool does not mean editing each of them.
 
 GitHub Pages builds use the repository name supplied by GitHub as the Vite base path. This lets the collection remain deployable if the repository is forked or renamed.
 
