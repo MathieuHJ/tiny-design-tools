@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+### Added
+
+- **Squint**, a third tool: blur a screenshot, switch between colour, grey, and three tones, and see where contrast survives. Exports a 1280 × 640 side-by-side proof. See [tools/squint](./tools/squint/README.md).
+
 ## 0.2.1
 
 ### Added

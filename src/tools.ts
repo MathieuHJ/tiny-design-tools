@@ -5,7 +5,7 @@ export const SITE_URL = 'https://mathieuhj.github.io/tiny-design-tools/'
 export const AUTHOR = { name: 'Mat', role: 'Design Engineer', url: 'https://mhj.digital' } as const
 export const VERSION = pkg.version
 
-export type ToolId = 'crop-proof' | 'copy-stress'
+export type ToolId = 'crop-proof' | 'copy-stress' | 'squint'
 
 export type ToolMeta = {
   id: ToolId
@@ -40,6 +40,16 @@ export const TOOLS: readonly ToolMeta[] = [
     input: 'Any live page',
     output: 'PNG proof + JSON',
     path: 'copy-stress/',
+  },
+  {
+    id: 'squint',
+    number: '03',
+    name: 'Squint',
+    category: 'Visual hierarchy',
+    tagline: 'Blur the design. See what still reads.',
+    input: 'PNG, JPEG, WebP',
+    output: 'PNG proof',
+    path: 'squint/',
   },
 ]
 

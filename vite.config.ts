@@ -14,6 +14,7 @@ export default defineConfig({
         gallery: resolve(import.meta.dirname, 'index.html'),
         cropProof: resolve(import.meta.dirname, 'crop-proof/index.html'),
         copyStress: resolve(import.meta.dirname, 'copy-stress/index.html'),
+        squint: resolve(import.meta.dirname, 'squint/index.html'),
       },
     },
   },

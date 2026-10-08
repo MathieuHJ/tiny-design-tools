@@ -8,6 +8,7 @@ Read the [project overview](README.md), [interface system](DESIGN-SYSTEM.md), an
 
 - [Crop Proof](tools/crop-proof/README.md)
 - [Copy Stress](tools/copy-stress/README.md)
+- [Squint](tools/squint/README.md)
 
 Preserve the local-only model: no accounts, uploads, analytics, remote fonts, paid APIs, or backend. UI chrome stays monochrome; user input retains its original colour. Discuss a new tool or substantial redesign in an issue before implementing it.
 
@@ -20,7 +21,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open the local URL printed by Vite. The tool routes are `/crop-proof/` and `/copy-stress/`.
+Open the local URL printed by Vite. The tool routes are `/crop-proof/`, `/copy-stress/`, and `/squint/`.
 
 ## Validate a change
 
