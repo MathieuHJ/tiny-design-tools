@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowsOutCardinal, DownloadSimple } from '@phosphor-icons/react'
+import { buildBookmarklet, runtimeUrlFor } from './bookmarklet'
 import { downloadCopyStressProof } from './exportProof'
 import { modeLabels, selectorFor, STRESS_MODES, stressText, type StressMode } from './stressMath'
 
@@ -30,10 +31,17 @@ export function CopyStress() {
   const [mode, setMode] = useState<StressMode>('expansion')
   const [findings, setFindings] = useState<Finding[]>([])
   const surface = useRef<HTMLDivElement>(null)
-  const bookmarkletUrl = useMemo(() => {
-    const runtimeUrl = new URL(`${import.meta.env.BASE_URL}copy-stress/bookmarklet.js`, window.location.origin).href
-    return `javascript:(()=>{const s=document.createElement('script');s.src='${runtimeUrl}';s.dataset.copyStress='1';document.head.append(s)})()`
-  }, [])
+  const launcher = useRef<HTMLAnchorElement>(null)
+  const bookmarkletUrl = useMemo(
+    () => buildBookmarklet(runtimeUrlFor(import.meta.env.BASE_URL, window.location.origin)),
+    [],
+  )
+
+  // React 19 replaces any javascript: href passed as a prop with a throwing stub, so a dragged bookmark
+  // would fail. Setting the attribute directly keeps the real address.
+  useEffect(() => {
+    launcher.current?.setAttribute('href', bookmarkletUrl)
+  }, [bookmarkletUrl])
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -68,7 +76,7 @@ export function CopyStress() {
           <p>Drag the launcher to your bookmarks bar, then open any page and run it. Nothing is uploaded.</p>
         </div>
         <div className="bookmarklet-actions">
-          <a className="copy-primary" href={bookmarkletUrl}>STRESS PAGE</a>
+          <a ref={launcher} className="copy-primary">STRESS PAGE</a>
           <button className="copy-secondary" type="button" onClick={copyBookmarklet}>COPY LAUNCHER</button>
         </div>
       </section>
