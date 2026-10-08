@@ -5,7 +5,7 @@ export const SITE_URL = 'https://mathieuhj.github.io/tiny-design-tools/'
 export const AUTHOR = { name: 'Mat', role: 'Design Engineer', url: 'https://mhj.digital' } as const
 export const VERSION = pkg.version
 
-export type ToolId = 'crop-proof' | 'copy-stress' | 'squint' | 'concentric'
+export type ToolId = 'crop-proof' | 'copy-stress' | 'squint' | 'concentric' | 'profile-kit'
 
 export type ToolMeta = {
   id: ToolId
@@ -60,6 +60,16 @@ export const TOOLS: readonly ToolMeta[] = [
     input: 'Two numbers',
     output: 'CSS + PNG',
     path: 'concentric/',
+  },
+  {
+    id: 'profile-kit',
+    number: '05',
+    name: 'Profile Kit',
+    category: 'Social profiles',
+    tagline: 'Your profile on four platforms, before you post.',
+    input: 'Avatar, banner, bio',
+    output: 'Files per platform + board',
+    path: 'profile-kit/',
   },
 ]
 

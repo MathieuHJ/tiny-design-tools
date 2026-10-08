@@ -32,9 +32,11 @@ export function useImageIntake(onFile: (file: File) => void) {
     }
     const onDrop = (event: DragEvent) => {
       if (!hasFiles(event)) return
-      event.preventDefault()
       depth = 0
       setIsDragging(false)
+      // A drop zone inside the page has already taken this file and cancelled the event.
+      if (event.defaultPrevented) return
+      event.preventDefault()
       const file = firstImageFile(event.dataTransfer)
       if (file) handler.current(file)
     }

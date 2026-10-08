@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.5.0
+
+### Added
+
+- **Profile Kit**, a fifth tool: add an avatar, a banner and a bio, see them as mock profiles on Instagram, TikTok, Facebook and X, check the bio against every platform's limit at once, and export sized avatar and banner files, one mock per platform, and a 1280 × 640 board. The platform specs it uses are listed in the tool with a confidence label and the date they were checked. See [tools/profile-kit](./tools/profile-kit/README.md).
+- A small ZIP writer in `src/zip.ts`, shared by anything that exports several files.
+
+### Changed
+
+- Dropping an image onto a drop zone no longer also triggers the page-wide drop handler.
+- The gallery grid is three columns wide on a desktop screen, so previews stay legible and five tools lay out as three and two.
+
 ## 0.4.0
 
 ### Added
