@@ -3,7 +3,7 @@
 
   const state = { mode: 'expansion', originals: new Map(), overlays: [], findings: [], root: null }
   const modes = ['expansion', 'empty', 'accented', 'rtl', 'unbroken']
-  const labels = { expansion: '2× COPY', empty: 'EMPTY', accented: 'ACCENTED', rtl: 'RTL', unbroken: 'UNBROKEN' }
+  const labels = { expansion: '2\u00d7 COPY', empty: 'EMPTY', accented: 'ACCENTED', rtl: 'RTL', unbroken: 'UNBROKEN' }
   const ignored = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA', 'OPTION', 'SVG', 'CODE', 'PRE'])
   const escape = (value) => value.replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[character])
   const selector = (element) => {
@@ -31,9 +31,9 @@
   }
   const transform = (value) => {
     if (state.mode === 'empty') return ''
-    if (state.mode === 'expansion') return `${value} · ${value}`
-    if (state.mode === 'accented') return `[${value.replace(/[aAeEiIoOuUcCnNyY]/g, (character) => ({ a: 'à', A: 'À', e: 'ë', E: 'Ë', i: 'ï', I: 'Ï', o: 'ô', O: 'Ô', u: 'ü', U: 'Ü', c: 'ç', C: 'Ç', n: 'ñ', N: 'Ñ', y: 'ÿ', Y: 'Ÿ' })[character])}]`
-    if (state.mode === 'rtl') return `‏${[...value].reverse().join('')}`
+    if (state.mode === 'expansion') return `${value} \u00b7 ${value}`
+    if (state.mode === 'accented') return `[${value.replace(/[aAeEiIoOuUcCnNyY]/g, (character) => ({ a: '\u00e0', A: '\u00c0', e: '\u00eb', E: '\u00cb', i: '\u00ef', I: '\u00cf', o: '\u00f4', O: '\u00d4', u: '\u00fc', U: '\u00dc', c: '\u00e7', C: '\u00c7', n: '\u00f1', N: '\u00d1', y: '\u00ff', Y: '\u0178' })[character])}]`
+    if (state.mode === 'rtl') return `\u200f${[...value].reverse().join('')}`
     return `${value.replace(/[^a-z0-9]/gi, '').toUpperCase()}WITHNOBREAKS`
   }
   const clearOverlays = () => {
@@ -67,7 +67,7 @@
       box.style.cssText = `position:fixed;left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;height:${rect.height}px;border:1px dashed #fff;z-index:2147483646;pointer-events:none;box-sizing:border-box;`
       const tag = document.createElement('span')
       tag.textContent = `${String(index + 1).padStart(2, '0')} / ${finding.kind}`
-      tag.style.cssText = 'position:absolute;left:-1px;top:-18px;padding:4px 6px;background:#050505;color:#fff;border:1px solid #fff;font:600 10px/1 monospace;letter-spacing:.04em;white-space:nowrap;'
+      tag.style.cssText = 'position:absolute;left:-1px;top:-18px;padding:4px 6px;background:#050505;color:#fff;border:1px solid #fff;font:600 11px/1 monospace;letter-spacing:.04em;white-space:nowrap;'
       box.append(tag)
       document.body.append(box)
       state.overlays.push(box)
@@ -101,12 +101,12 @@
     const root = document.createElement('aside')
     root.id = 'copy-stress-panel'
     root.style.cssText = 'position:fixed;right:18px;bottom:18px;width:240px;padding:14px;border:1px solid #777;background:#080808;color:#f4f4f1;z-index:2147483647;box-shadow:0 12px 36px rgba(0,0,0,.35);font:500 11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em;'
-    root.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #303030;padding-bottom:10px;margin-bottom:12px"><strong style="font-size:11px">COPY STRESS</strong><button data-copy-stress-close style="border:0;background:transparent;color:#aaa;font:inherit;cursor:pointer">CLOSE</button></div><p style="color:#999;margin:0 0 12px">MODE / <span data-copy-stress-mode>2× COPY</span></p><div data-copy-stress-modes style="display:grid;grid-template-columns:1fr 1fr;gap:5px"></div><div style="display:flex;justify-content:space-between;margin-top:16px;padding-top:11px;border-top:1px solid #303030"><span>FINDINGS</span><strong data-copy-stress-count>00</strong></div><button data-copy-stress-report style="width:100%;margin-top:8px;padding:9px;border:1px solid #777;background:transparent;color:#fff;font:inherit;cursor:pointer">DOWNLOAD JSON</button><button data-copy-stress-reset style="width:100%;margin-top:7px;padding:9px;border:1px solid #777;background:transparent;color:#fff;font:inherit;cursor:pointer">RESET PAGE</button>`
+    root.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #303030;padding-bottom:10px;margin-bottom:12px"><strong style="font-size:11px">COPY STRESS</strong><button data-copy-stress-close style="border:0;background:transparent;color:#aaa;font:inherit;cursor:pointer">CLOSE</button></div><p style="color:#999;margin:0 0 12px">MODE / <span data-copy-stress-mode>2\u00d7 COPY</span></p><div data-copy-stress-modes style="display:grid;grid-template-columns:1fr 1fr;gap:5px"></div><div style="display:flex;justify-content:space-between;margin-top:16px;padding-top:11px;border-top:1px solid #303030"><span>FINDINGS</span><strong data-copy-stress-count>00</strong></div><button data-copy-stress-report style="width:100%;margin-top:8px;padding:9px;border:1px solid #777;background:transparent;color:#fff;font:inherit;cursor:pointer">DOWNLOAD JSON</button><button data-copy-stress-reset style="width:100%;margin-top:7px;padding:9px;border:1px solid #777;background:transparent;color:#fff;font:inherit;cursor:pointer">RESET PAGE</button>`
     const modeBox = root.querySelector('[data-copy-stress-modes]')
     modes.forEach((mode) => {
       const button = document.createElement('button')
       button.textContent = labels[mode]
-      button.style.cssText = 'min-height:28px;border:1px solid #444;background:#111;color:#ddd;font:600 9px/1 monospace;cursor:pointer;letter-spacing:.04em;'
+      button.style.cssText = 'min-height:28px;border:1px solid #444;background:#111;color:#ddd;font:600 11px/1 monospace;cursor:pointer;letter-spacing:.04em;'
       button.onclick = () => { state.mode = mode; inspect() }
       modeBox.append(button)
     })

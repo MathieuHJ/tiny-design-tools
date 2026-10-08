@@ -1,5 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowsOutCardinal, DownloadSimple } from '@phosphor-icons/react'
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from 'react'
+import { ArrowsOutCardinal, BookmarkSimple, DownloadSimple } from '@phosphor-icons/react'
+import { useCopy } from '../../src/useCopy'
+import { ToolFooter, ToolHeader } from '../../src/ToolChrome'
 import { buildBookmarklet, runtimeUrlFor } from './bookmarklet'
 import { downloadCopyStressProof } from './exportProof'
 import { modeLabels, selectorFor, STRESS_MODES, stressText, type StressMode } from './stressMath'
@@ -30,6 +32,8 @@ function findingFor(element: HTMLElement, mode: StressMode): Finding | null {
 export function CopyStress() {
   const [mode, setMode] = useState<StressMode>('expansion')
   const [findings, setFindings] = useState<Finding[]>([])
+  const [dragHint, setDragHint] = useState(false)
+  const launcherCopy = useCopy('COPY LAUNCHER')
   const surface = useRef<HTMLDivElement>(null)
   const launcher = useRef<HTMLAnchorElement>(null)
   const bookmarkletUrl = useMemo(
@@ -37,8 +41,8 @@ export function CopyStress() {
     [],
   )
 
-  // React 19 replaces any javascript: href passed as a prop with a throwing stub, so a dragged bookmark
-  // would fail. Setting the attribute directly keeps the real address.
+  // React 19 replaces any javascript: href passed as a prop with a throwing stub, which would
+  // save a broken bookmark when the link is dragged. Setting the attribute directly keeps it intact.
   useEffect(() => {
     launcher.current?.setAttribute('href', bookmarkletUrl)
   }, [bookmarkletUrl])
@@ -53,42 +57,61 @@ export function CopyStress() {
     return () => cancelAnimationFrame(frame)
   }, [mode])
 
-  const copyBookmarklet = async () => {
-    await navigator.clipboard.writeText(bookmarkletUrl)
+  // Clicking the launcher here would stress this page, not the one the designer wants to review.
+  const onLauncherClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    setDragHint(true)
+    window.setTimeout(() => setDragHint(false), 3200)
   }
 
   return (
-    <main className="copy-shell">
-      <header className="copy-header">
-        <a className="copy-mark" href="../" aria-label="Back to Tiny Design Tools">TDT / 02</a>
-        <p>LOCAL / BOOKMARKLET</p>
-      </header>
+    <main className="tool-shell">
+      <ToolHeader id="copy-stress" note="LOCAL / BOOKMARKLET" />
 
-      <section className="copy-intro">
+      <section className="tool-intro">
         <h1>Copy Stress</h1>
         <p>Stress real interface copy. Make the broken elements visible.</p>
       </section>
 
       <section className="bookmarklet-gate" aria-labelledby="bookmarklet-heading">
         <div>
-          <p className="copy-label">REAL PAGE</p>
-          <h2 id="bookmarklet-heading">Run on the page you need to review.</h2>
-          <p>Drag the launcher to your bookmarks bar, then open any page and run it. Nothing is uploaded.</p>
+          <p className="label">REAL PAGE</p>
+          <h2 id="bookmarklet-heading">Run it on the page you need to review.</h2>
+          <ol className="bookmarklet-steps">
+            <li><span>01</span>Drag <strong>STRESS PAGE</strong> to your bookmarks bar.</li>
+            <li><span>02</span>Open the page you want to check.</li>
+            <li><span>03</span>Click the bookmark. Nothing is uploaded.</li>
+          </ol>
+          <p className="bookmarklet-touch-note">Bookmarklets need a desktop browser. On a phone, send this page to your computer.</p>
         </div>
         <div className="bookmarklet-actions">
-          <a ref={launcher} className="copy-primary">STRESS PAGE</a>
-          <button className="copy-secondary" type="button" onClick={copyBookmarklet}>COPY LAUNCHER</button>
+          <a
+            ref={launcher}
+            className="primary-button bookmarklet-launcher"
+            draggable="true"
+            onClick={onLauncherClick}
+            aria-describedby="launcher-hint"
+          >
+            <BookmarkSimple size={14} weight="bold" aria-hidden="true" />
+            STRESS PAGE
+          </a>
+          <button className="secondary-button" type="button" onClick={() => launcherCopy.copy(bookmarkletUrl)}>
+            {launcherCopy.label}
+          </button>
+          <p className="bookmarklet-hint" id="launcher-hint" role="status">
+            {dragHint ? 'DRAG IT TO YOUR BOOKMARKS BAR. CLICKING HERE ONLY STRESSES THIS PAGE.' : 'DRAG ME, OR COPY AND PASTE AS A BOOKMARK URL'}
+          </p>
         </div>
       </section>
 
-      <section className="copy-workbench" aria-labelledby="simulation-heading">
-        <div className="copy-source" ref={surface}>
-          <div className="copy-panel-heading">
+      <section className="workbench copy-workbench" aria-labelledby="simulation-heading">
+        <div className="stage-panel copy-source" ref={surface}>
+          <div className="panel-heading">
             <div>
-              <p className="copy-label">SIMULATION</p>
+              <p className="step-label">SIMULATION</p>
               <h2 id="simulation-heading">A small interface under pressure.</h2>
             </div>
-            <p>{modeLabels[mode]}</p>
+            <p className="copy-mode-readout">{modeLabels[mode]}</p>
           </div>
           <div className={`stress-fixture stress-fixture--${mode}`} dir={mode === 'rtl' ? 'rtl' : 'ltr'}>
             <div className="stress-fixture__bar">
@@ -106,32 +129,36 @@ export function CopyStress() {
               </div>
             </div>
           </div>
-          {findings.map((finding, index) => (
-            <div className="copy-finding-rail" key={`${finding.selector}-${index}`}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <strong>{finding.kind}</strong>
-              <em>{finding.label}</em>
-            </div>
-          ))}
+          <div aria-live="polite">
+            {findings.map((finding, index) => (
+              <div className="copy-finding-rail" key={`${finding.selector}-${index}`}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <strong>{finding.kind}</strong>
+                <em>{finding.label}</em>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <aside className="copy-controls" aria-label="Copy stress controls">
+        <aside className="side-panel copy-controls" aria-label="Copy stress controls">
           <div>
-            <p className="copy-label">STRESS MODE</p>
-            <div className="copy-mode-list">
+            <p className="step-label" id="stress-mode-label">STRESS MODE</p>
+            <div className="segmented copy-mode-list" role="group" aria-labelledby="stress-mode-label">
               {STRESS_MODES.map((item) => (
-                <button className={item === mode ? 'is-selected' : ''} type="button" key={item} onClick={() => setMode(item)}>
+                <button type="button" key={item} aria-pressed={item === mode} onClick={() => setMode(item)}>
                   {modeLabels[item]}
                 </button>
               ))}
             </div>
           </div>
-          <div className="copy-finding-summary">
-            <p className="copy-label">FINDINGS</p>
-            <strong>{String(findings.length).padStart(2, '0')}</strong>
-            <span>{findings.length === 1 ? 'ELEMENT' : 'ELEMENTS'} NEED REVIEW</span>
+          <div className="finding-card copy-finding-summary">
+            <div>
+              <p>FINDINGS</p>
+              <strong className="copy-finding-count">{String(findings.length).padStart(2, '0')}</strong>
+              <span>{findings.length === 1 ? 'ELEMENT NEEDS' : 'ELEMENTS NEED'} REVIEW</span>
+            </div>
           </div>
-          <button className="copy-export" type="button" onClick={() => downloadCopyStressProof(mode, findings)}>
+          <button className="primary-button" type="button" onClick={() => downloadCopyStressProof(mode, findings)}>
             <DownloadSimple size={15} weight="regular" aria-hidden="true" />
             EXPORT PNG
           </button>
@@ -143,10 +170,7 @@ export function CopyStress() {
         <p>The bookmarklet checks regular page text only. Pages with strict script policies can block it.</p>
       </section>
 
-      <footer className="copy-footer">
-        <p>V0.1</p>
-        <p>LOCAL / MIT</p>
-      </footer>
+      <ToolFooter id="copy-stress" />
     </main>
   )
 }

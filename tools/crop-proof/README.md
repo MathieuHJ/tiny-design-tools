@@ -12,9 +12,9 @@ The interface follows the repository's black-and-white instrument system. UI chr
 
 - **Audience:** brand, web, and marketing designers, art directors, content teams, and frontend developers.
 - **Repeated friction:** the same photograph is corrected separately for every responsive format, which makes subject loss easy to miss.
-- **Input:** one local PNG, JPEG, or WebP under 25 MB.
-- **Interaction:** drag one linked focal-point crosshair. Arrow keys move it by 1%; Shift plus an arrow moves it by 5%.
-- **Proof:** six live production crops, copyable CSS, and a 1280 × 640 PNG crop sheet.
+- **Input:** one local PNG, JPEG, or WebP under 25 MB. Choose a file, drop one on the page, or paste from the clipboard.
+- **Interaction:** click or drag anywhere on the image to place one linked focal point. Arrow keys move it by 1%; Shift plus an arrow moves it by 5%.
+- **Proof:** six live production crops, the share of the source each one keeps, copyable CSS, and a 1280 × 640 PNG crop sheet.
 - **Explicit exclusions:** filters, image editing, uploads, accounts, analytics, custom crop building, automatic repair, and subject detection.
 - **Success criterion:** a designer can load a real photograph, position its subject once, verify all six crops, copy the CSS, and export the proof without a network request.
 
@@ -49,7 +49,7 @@ img {
 `pnpm check` passes:
 
 - ESLint;
-- three crop-math and failure tests;
+- six crop-math, retention, and failure tests;
 - strict TypeScript;
 - a production Vite build with a gallery page and static Crop Proof deep link.
 
@@ -58,7 +58,8 @@ The representative tests cover the normal editorial fixture, the 4096 × 192 hos
 The browser pass covers:
 
 - local file selection and synthetic demo loading;
-- pointer dragging and keyboard movement;
+- clicking and dragging anywhere on the image, and keyboard movement straight after a click;
+- drop and paste input, a rejected PDF, and a corrupt image;
 - successful PNG download at exactly 1280 × 640;
 - desktop rendering at 1440 × 1000;
 - narrow rendering at 390 × 844 without horizontal overflow;

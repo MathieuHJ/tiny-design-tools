@@ -6,7 +6,7 @@ Find the copy that turns a finished interface into a broken one.
 |---|---|---|
 | Open a real page | Apply hostile copy locally | Export the visible failures |
 
-Copy Stress is a bookmarklet plus a local simulation surface. Drag **STRESS PAGE** to the browser bookmarks bar, open the page you want to review, then run it. The injected panel applies one mode at a time and outlines regular DOM text elements that overflow or become empty.
+Copy Stress is a bookmarklet plus a local simulation surface. Drag **STRESS PAGE** to the browser bookmarks bar, open the page you want to review, then run it. If dragging is awkward, **COPY LAUNCHER** copies the same script so it can be pasted as the URL of a new bookmark. The injected panel applies one mode at a time and outlines regular DOM text elements that overflow or become empty.
 
 ## V0.1 modes
 
@@ -21,6 +21,10 @@ The web surface exports a 1280 × 640 PNG proof frame. The bookmarklet's **DOWNL
 ## Privacy
 
 The bookmarklet reads and changes page text in the current browser tab only. It has no account, upload, analytics, or backend. Nothing leaves the device.
+
+## Tests
+
+`pnpm check` covers the stress transforms, overflow detection, selector naming, and the launcher: its script must parse, must keep a hostile URL inside its string literal, and must resolve under the Pages base path. The bookmarklet runtime is plain ASCII, so it renders correctly on pages that declare no character encoding.
 
 ## Limitation
 

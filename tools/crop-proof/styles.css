@@ -1,0 +1,87 @@
+/* Crop Proof. Shared tokens, controls and chrome come from src/tokens.css. */
+
+.source-surface {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  min-height: 260px;
+  overflow: hidden;
+  background: var(--inset);
+  touch-action: none;
+  user-select: none;
+  cursor: crosshair;
+}
+.source-surface > img { width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none; }
+.source-grid { position: absolute; border: 1px solid rgba(255, 255, 255, .18); pointer-events: none; }
+
+.focal-control {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, .18);
+  transform: translate(-50%, -50%);
+  color: #fff;
+  pointer-events: none;
+  touch-action: none;
+}
+.focal-control.is-warning { border-style: dashed; }
+
+.coordinate-readout { position: absolute; left: 8px; bottom: 8px; display: flex; gap: 1px; pointer-events: none; }
+.coordinate-readout span { padding: 5px 7px; background: rgba(0, 0, 0, .84); color: #fff; font: 600 var(--fs-label)/1 var(--font-mono); }
+.interaction-help { margin: 10px 0 0; color: var(--muted); font: 500 var(--fs-label)/1.4 var(--font-mono); letter-spacing: .05em; }
+
+.css-output { border-top: 1px solid var(--line); padding-top: 14px; margin-top: auto; }
+.css-output code {
+  display: block;
+  margin: 8px 0;
+  padding: 10px;
+  background: var(--inset);
+  color: var(--text);
+  font: 500 var(--fs-meta)/1.4 var(--font-mono);
+  overflow-wrap: anywhere;
+}
+
+.proof-section { margin-top: 52px; }
+.proof-heading { align-items: flex-end; margin-bottom: 12px; }
+.proof-heading h2 { margin: 8px 0 0; font-size: 18px; line-height: 1; letter-spacing: -.02em; font-weight: 520; }
+.proof-note { margin: 12px 0 0; color: var(--muted); font: 500 var(--fs-label)/1.4 var(--font-mono); letter-spacing: .05em; }
+
+.crop-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.crop-card { min-height: 260px; display: flex; flex-direction: column; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--surface); }
+.crop-card__meta { min-height: 36px; display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 8px; padding: 0 12px; border-bottom: 1px solid var(--line); }
+.crop-card__meta span { color: var(--muted); font: 600 var(--fs-label)/1 var(--font-mono); }
+.crop-card__meta h3 { margin: 0; font: 500 var(--fs-meta)/1 var(--font-sans); }
+.crop-card__stage { flex: 1; min-height: 224px; padding: 18px; display: grid; place-items: center; }
+.crop-frame { position: relative; max-width: 100%; max-height: 196px; width: min(100%, 320px); overflow: hidden; background: var(--inset); border: 1px solid var(--line); }
+.crop-card--mobile-hero .crop-frame { width: 104px; height: 184px; }
+.crop-card--desktop-hero .crop-frame,
+.crop-card--open-graph .crop-frame { width: 100%; }
+.crop-card--avatar .crop-frame { width: 184px; border-radius: 50%; }
+.crop-card--square .crop-frame { width: 184px; }
+.crop-card--card .crop-frame { width: 260px; }
+.crop-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.crop-target { position: absolute; transform: translate(-50%, -50%); color: #fff; filter: drop-shadow(0 0 1px #000); }
+.crop-target.is-warning { opacity: .72; }
+
+@media (max-width: 840px) {
+  .side-panel { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; }
+  .css-output { grid-column: 1 / -1; margin: 0; }
+  .crop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .source-surface { min-height: 190px; }
+  .focal-control { width: 44px; height: 44px; }
+  .side-panel { padding: 14px; grid-template-columns: 1fr 1fr; }
+  .side-panel > div:first-child,
+  .side-panel > .finding-card { grid-column: 1 / -1; }
+  .proof-section { margin-top: 40px; }
+  .proof-heading { align-items: flex-start; flex-direction: column; }
+  .crop-grid { grid-template-columns: 1fr; }
+  .crop-card { min-height: 250px; }
+  .crop-card__stage { min-height: 216px; }
+}

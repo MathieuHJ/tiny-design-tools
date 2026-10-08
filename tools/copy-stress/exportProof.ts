@@ -1,3 +1,4 @@
+import { downloadCanvas } from '../../src/download'
 import type { StressMode } from './stressMath'
 import { modeLabels } from './stressMath'
 
@@ -32,10 +33,10 @@ export function downloadCopyStressProof(mode: StressMode, findings: ProofFinding
   context.lineTo(764.5, 600)
   context.stroke()
 
-  text(context, 'TDT / 02', 66, 82, 12)
-  text(context, 'COPY STRESS / PROOF', 66, 156, 13, true)
+  text(context, 'TDT / 02', 66, 82, 14)
+  text(context, 'COPY STRESS / PROOF', 66, 156, 15, true)
   text(context, modeLabels[mode], 66, 196, 34)
-  text(context, `${findings.length} VISIBLE FAILURES`, 66, 226, 12, true)
+  text(context, `${findings.length} VISIBLE ${findings.length === 1 ? 'FAILURE' : 'FAILURES'}`, 66, 226, 14, true)
 
   context.strokeStyle = '#555555'
   context.strokeRect(66.5, 272.5, 652, 248)
@@ -51,7 +52,7 @@ export function downloadCopyStressProof(mode: StressMode, findings: ProofFinding
     context.setLineDash([])
   })
 
-  text(context, 'FINDINGS', 798, 156, 13, true)
+  text(context, 'FINDINGS', 798, 156, 15, true)
   findings.slice(0, 5).forEach((finding, index) => {
     const y = 202 + index * 70
     context.strokeStyle = '#353535'
@@ -59,16 +60,13 @@ export function downloadCopyStressProof(mode: StressMode, findings: ProofFinding
     context.moveTo(798, y + 28.5)
     context.lineTo(1198, y + 28.5)
     context.stroke()
-    text(context, `${String(index + 1).padStart(2, '0')} / ${finding.kind}`, 798, y, 11)
-    text(context, finding.label.toUpperCase(), 798, y + 20, 12)
-    text(context, finding.selector, 1005, y + 20, 10, true)
+    text(context, `${String(index + 1).padStart(2, '0')} / ${finding.kind}`, 798, y, 13)
+    text(context, finding.label.toUpperCase(), 798, y + 22, 15)
+    text(context, finding.selector, 1005, y + 22, 13, true)
   })
 
-  text(context, 'LOCAL / NO UPLOAD', 66, 574, 11, true)
-  text(context, 'tiny-design-tools', 1056, 574, 11, true)
+  text(context, 'LOCAL / NO UPLOAD', 66, 574, 13, true)
+  text(context, 'tiny-design-tools / 02', 1010, 574, 13, true)
 
-  const link = document.createElement('a')
-  link.download = `copy-stress-${mode}-proof.png`
-  link.href = canvas.toDataURL('image/png')
-  link.click()
+  downloadCanvas(canvas, `copy-stress-${mode}-proof.png`)
 }
