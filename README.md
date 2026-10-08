@@ -13,6 +13,7 @@ The collection follows a permanent [black-and-white interface system](./DESIGN-S
 - [Open the collection](https://mathieuhj.github.io/tiny-design-tools/)
 - [Open Crop Proof directly](https://mathieuhj.github.io/tiny-design-tools/crop-proof/)
 - [Open Copy Stress directly](https://mathieuhj.github.io/tiny-design-tools/copy-stress/)
+- [Open Squint directly](https://mathieuhj.github.io/tiny-design-tools/squint/)
 
 ## Released
 
@@ -20,6 +21,7 @@ The collection follows a permanent [black-and-white interface system](./DESIGN-S
 |---|---|---|---|
 | [Crop Proof](./tools/crop-proof/README.md) | PNG, JPEG, or WebP | One linked focal point across six fixed crops | 1280 × 640 PNG crop sheet and CSS `object-position` |
 | [Copy Stress](./tools/copy-stress/README.md) | A live page via bookmarklet | Apply hostile copy modes | 1280 × 640 PNG diagnostic proof |
+| [Squint](./tools/squint/README.md) | A screenshot (PNG, JPEG, or WebP) | Blur strength, tone, and contrast points | 1280 × 640 PNG, original beside squinted |
 
 ## Run it
 
@@ -28,7 +30,7 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://127.0.0.1:5173/crop-proof/` or `/copy-stress/`. The root URL contains the gallery. The public build is deployed automatically from `main` by GitHub Actions.
+Open `http://127.0.0.1:5173/crop-proof/`, `/copy-stress/`, or `/squint/`. The root URL contains the gallery. The public build is deployed automatically from `main` by GitHub Actions.
 
 ## Validate it
 
@@ -43,7 +45,7 @@ pnpm capture
 
 - `src/`: the gallery, plus the code every tool shares: design tokens and page chrome (`tokens.css`, `ToolChrome.tsx`), the tool registry (`tools.ts`), and small helpers for copying, downloading, and image intake
 - `tools/`: one isolated folder and application entry point per released tool
-- `crop-proof/`, `copy-stress/`: static deep-link entries for GitHub Pages
+- `crop-proof/`, `copy-stress/`, `squint/`: static deep-link entries for GitHub Pages
 - `release/`: reviewed release media and draft copy
 - `DESIGN-SYSTEM.md`: visual rules shared by every tool
 

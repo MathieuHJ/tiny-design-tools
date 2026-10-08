@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <title>Synthetic landing page for the Squint demo</title>
+  <!-- Original fixture. The call to action (#cf7036) and the hero field (#5a8a92) share a luminance of about 128,
+       so the button reads in colour and disappears once the page is squinted in grey. -->
+  <rect width="1440" height="900" fill="#5a8a92"/>
+
+  <!-- Navigation -->
+  <rect width="1440" height="76" fill="#17202a"/>
+  <rect x="64" y="24" width="28" height="28" rx="7" fill="#f4f1ea"/>
+  <text x="104" y="46" font-size="21" font-weight="700" fill="#f4f1ea">Atlas</text>
+  <g font-size="15" fill="#8d9aa6">
+    <text x="520" y="44">Product</text>
+    <text x="612" y="44">Pricing</text>
+    <text x="694" y="44">Customers</text>
+    <text x="806" y="44">Docs</text>
+  </g>
+  <text x="1210" y="44" font-size="15" fill="#8d9aa6">Sign in</text>
+  <rect x="1290" y="20" width="86" height="36" rx="9" fill="none" stroke="#6b7885" stroke-width="1.5"/>
+  <text x="1333" y="43" font-size="14" fill="#8d9aa6" text-anchor="middle">Demo</text>
+
+  <!-- Hero copy -->
+  <text x="64" y="188" font-size="14" font-weight="700" letter-spacing="3" fill="#b9d0d4">LAUNCH PLANNING</text>
+  <text x="64" y="300" font-size="88" font-weight="800" letter-spacing="-3" fill="#ffffff">Plan every</text>
+  <text x="64" y="392" font-size="88" font-weight="800" letter-spacing="-3" fill="#ffffff">launch, once.</text>
+  <text x="64" y="452" font-size="22" fill="#d3e2e4">Atlas keeps roadmaps, briefs and approvals together</text>
+  <text x="64" y="484" font-size="22" fill="#d3e2e4">so nothing ships half-finished.</text>
+
+  <!-- Primary action: same luminance as the field behind it -->
+  <rect x="64" y="532" width="236" height="62" rx="13" fill="#cf7036"/>
+  <text x="182" y="571" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">Start free trial</text>
+  <text x="332" y="569" font-size="18" fill="#9bbcc1">Watch the 2-min tour →</text>
+
+  <!-- Social proof -->
+  <text x="64" y="668" font-size="15" fill="#a7c3c7">Trusted by 4,000+ product teams</text>
+  <g fill="#6c9aa2">
+    <rect x="64" y="692" width="92" height="22" rx="5"/>
+    <rect x="176" y="692" width="68" height="22" rx="5"/>
+    <rect x="264" y="692" width="104" height="22" rx="5"/>
+    <rect x="388" y="692" width="76" height="22" rx="5"/>
+    <rect x="484" y="692" width="96" height="22" rx="5"/>
+  </g>
+
+  <!-- Product card -->
+  <rect x="780" y="128" width="596" height="632" rx="30" fill="#17202a"/>
+  <g fill="#3a4856">
+    <circle cx="824" cy="176" r="7"/>
+    <circle cx="848" cy="176" r="7"/>
+    <circle cx="872" cy="176" r="7"/>
+  </g>
+  <text x="820" y="244" font-size="22" font-weight="700" fill="#f4f1ea">Q4 launch</text>
+  <rect x="1244" y="224" width="96" height="30" rx="15" fill="#25323f"/>
+  <text x="1292" y="244" font-size="14" fill="#8fd0a6" text-anchor="middle">On track</text>
+
+  <!-- Chart -->
+  <line x1="820" y1="560" x2="1336" y2="560" stroke="#3a4856" stroke-width="2"/>
+  <g fill="#f4f1ea">
+    <rect x="828" y="470" width="52" height="90" rx="6"/>
+    <rect x="904" y="420" width="52" height="140" rx="6"/>
+    <rect x="980" y="380" width="52" height="180" rx="6"/>
+    <rect x="1056" y="330" width="52" height="230" rx="6"/>
+  </g>
+  <g fill="#566676">
+    <rect x="1132" y="400" width="52" height="160" rx="6"/>
+    <rect x="1208" y="360" width="52" height="200" rx="6"/>
+    <rect x="1284" y="300" width="52" height="260" rx="6"/>
+  </g>
+
+  <!-- Task rows -->
+  <g fill="#25323f">
+    <rect x="820" y="600" width="516" height="40" rx="10"/>
+    <rect x="820" y="652" width="516" height="40" rx="10"/>
+  </g>
+  <g fill="#8d9aa6">
+    <rect x="840" y="614" width="14" height="14" rx="4" fill="#8fd0a6"/>
+    <rect x="868" y="617" width="170" height="8" rx="4"/>
+    <rect x="840" y="666" width="14" height="14" rx="4"/>
+    <rect x="868" y="669" width="210" height="8" rx="4"/>
+  </g>
+
+  <!-- Feature strip -->
+  <rect y="800" width="1440" height="100" fill="#4f7c84"/>
+  <g font-size="15" fill="#cfe0e2">
+    <text x="64" y="846" font-weight="700">Roadmaps</text>
+    <text x="64" y="870" fill="#a7c3c7">Plan by quarter</text>
+    <text x="336" y="846" font-weight="700">Briefs</text>
+    <text x="336" y="870" fill="#a7c3c7">One page per launch</text>
+    <text x="608" y="846" font-weight="700">Approvals</text>
+    <text x="608" y="870" fill="#a7c3c7">Sign-off in the thread</text>
+  </g>
+</svg>

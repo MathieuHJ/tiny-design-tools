@@ -78,6 +78,13 @@ try {
   await page.waitForTimeout(500)
   await saveExport(page, 'EXPORT PNG', 'copy-stress-proof.png')
 
+  // Squint: the demo page, squinted to grey, where the call to action disappears.
+  await page.goto(`${origin}/squint/`)
+  await page.getByRole('button', { name: 'USE DEMO' }).click()
+  await page.locator('canvas').waitFor()
+  await page.waitForTimeout(600)
+  await saveExport(page, 'EXPORT PNG', 'squint-proof.png')
+
   await context.close()
 } finally {
   await browser?.close()
