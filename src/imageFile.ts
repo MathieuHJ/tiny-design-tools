@@ -14,3 +14,9 @@ export function firstImageFile(data: DataTransfer | null): File | null {
   if (!data) return null
   return [...data.files].find((file) => file.type.startsWith('image/')) ?? null
 }
+
+/** Every image file in a drop or paste, in order. */
+export function allImageFiles(data: DataTransfer | null): File[] {
+  if (!data) return []
+  return [...data.files].filter((file) => file.type.startsWith('image/'))
+}

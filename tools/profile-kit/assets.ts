@@ -7,17 +7,28 @@ import { PLATFORMS, PLATFORM_IDS, type PlatformId } from './platforms'
 let counter = 0
 
 /** Decode an image into an asset with a centred, unzoomed crop. */
-export async function loadAsset(url: string, name: string, isObjectUrl: boolean): Promise<Asset> {
-  const image = new Image()
-  image.src = url
-  await image.decode()
-  if (!image.naturalWidth || !image.naturalHeight) throw new Error('That image has no size.')
-  counter += 1
-  return { id: `asset-${counter}`, name, url, isObjectUrl, image, width: image.naturalWidth, height: image.naturalHeight, crop: { ...DEFAULT_CROP } }
+export async function loadAsset(blob: Blob, name: string, crop: Crop = DEFAULT_CROP): Promise<Asset> {
+  const url = URL.createObjectURL(blob)
+  try {
+    const image = new Image()
+    image.src = url
+    await image.decode()
+    if (!image.naturalWidth || !image.naturalHeight) throw new Error('That image has no size.')
+    counter += 1
+    return { id: `asset-${counter}`, name, url, blob, image, width: image.naturalWidth, height: image.naturalHeight, crop: { ...crop } }
+  } catch (error) {
+    URL.revokeObjectURL(url)
+    throw error
+  }
+}
+
+/** Read a data or object URL into a blob, for bundled artwork. */
+export async function blobFromUrl(url: string): Promise<Blob> {
+  return (await fetch(url)).blob()
 }
 
 export function releaseAsset(asset: Asset | null) {
-  if (asset?.isObjectUrl) URL.revokeObjectURL(asset.url)
+  if (asset) URL.revokeObjectURL(asset.url)
 }
 
 function canvasOf(width: number, height: number) {
