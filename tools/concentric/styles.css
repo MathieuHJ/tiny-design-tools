@@ -1,0 +1,71 @@
+/* Concentric. Shared tokens, controls and chrome come from src/tokens.css. */
+
+.nest-stage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.nest-panel { margin: 0; min-width: 0; }
+.nest-panel figcaption { min-height: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 12px; padding-bottom: 4px; }
+.nest-ratio { color: var(--text); font: 600 var(--fs-label)/1 var(--font-mono); letter-spacing: .06em; }
+.nest-svg { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; background: var(--inset); border: 1px solid var(--line); }
+.nest-guide { fill: none; stroke: rgba(242, 242, 240, .4); stroke-dasharray: 3 4; }
+.nest-centre { fill: none; stroke: #fff; }
+.nest-probe { stroke: #fff; stroke-width: 2px; }
+
+.interaction-help { margin: 12px 0 0; color: var(--muted); font: 500 var(--fs-label)/1.5 var(--font-mono); letter-spacing: .05em; }
+
+.nest-controls { gap: 20px; }
+.nest-controls > .primary-button { margin-top: auto; }
+.nest-answer .readout { margin: 10px 0 0; font-size: 44px; }
+.nest-answer .readout span { color: var(--muted); font-size: 14px; letter-spacing: .04em; }
+.nest-note { margin: 10px 0 0; color: var(--text); font: 500 var(--fs-label)/1.5 var(--font-mono); letter-spacing: .04em; text-decoration: underline; text-underline-offset: 3px; }
+
+.control-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.nest-number { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font: 600 var(--fs-label)/1 var(--font-mono); letter-spacing: .06em; }
+.nest-number input {
+  width: 64px;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--text);
+  font: 500 14px/1 var(--font-mono);
+  text-align: right;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.nest-number input::-webkit-outer-spin-button,
+.nest-number input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.nest-number input:hover { border-color: var(--line-strong); }
+
+.range { width: 100%; height: 36px; margin: 4px 0 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: pointer; }
+.range::-webkit-slider-runnable-track { height: 1px; background: var(--line-strong); }
+.range::-moz-range-track { height: 1px; background: var(--line-strong); }
+.range::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 22px; margin-top: -11px; border: 0; border-radius: 2px; background: var(--text); }
+.range::-moz-range-thumb { width: 12px; height: 22px; border: 0; border-radius: 2px; background: var(--text); }
+
+.nest-workbench { grid-template-areas: "preview side" "css side"; grid-template-rows: auto 1fr; }
+.nest-preview { grid-area: preview; }
+.nest-css-panel { grid-area: css; border-top: 1px solid var(--line); }
+.nest-controls { grid-area: side; }
+.nest-css__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.nest-css-panel pre { margin: 10px 0 0; padding: 12px; overflow-x: auto; background: var(--inset); }
+.nest-css-panel code { color: var(--text); font: 500 var(--fs-meta)/1.55 var(--font-mono); white-space: pre; }
+.nest-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+@media (max-width: 840px) {
+  .nest-workbench { grid-template-columns: 1fr; grid-template-areas: "preview" "side" "css"; grid-template-rows: auto; }
+  .nest-preview { border-bottom: 1px solid var(--line); }
+  .nest-css-panel { border-top: 0; border-right: 0; }
+  .nest-controls { display: grid; grid-template-columns: 1fr 1fr; align-items: start; border-bottom: 1px solid var(--line); }
+  .nest-controls > .nest-answer,
+  .nest-controls > .primary-button { grid-column: 1 / -1; }
+}
+
+@media (max-width: 560px) {
+  .nest-controls { grid-template-columns: 1fr; }
+  .nest-stage { gap: 8px; }
+}
+
+@media (pointer: coarse), (max-width: 560px) {
+  .range { height: var(--touch); }
+  .nest-number input { height: var(--touch); }
+}
