@@ -10,6 +10,7 @@ Read the [project overview](README.md), [interface system](DESIGN-SYSTEM.md), an
 - [Copy Stress](tools/copy-stress/README.md)
 - [Squint](tools/squint/README.md)
 - [Concentric](tools/concentric/README.md)
+- [Profile Kit](tools/profile-kit/README.md)
 
 Preserve the local-only model: no accounts, uploads, analytics, remote fonts, paid APIs, or backend. UI chrome stays monochrome; user input retains its original colour. Discuss a new tool or substantial redesign in an issue before implementing it.
 
@@ -22,7 +23,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open the local URL printed by Vite. The tool routes are `/crop-proof/`, `/copy-stress/`, `/squint/`, and `/concentric/`.
+Open the local URL printed by Vite. The tool routes are `/crop-proof/`, `/copy-stress/`, `/squint/`, `/concentric/`, and `/profile-kit/`.
 
 ## Validate a change
 

@@ -2,6 +2,7 @@ import { ArrowRight, ArrowUpRight } from '@phosphor-icons/react'
 import copyStressProof from '../release/copy-stress-proof.png?url'
 import concentricProof from '../release/concentric-proof.png?url'
 import cropProofProof from '../release/crop-proof-proof.png?url'
+import profileKitProof from '../release/profile-kit-proof.png?url'
 import squintProof from '../release/squint-proof.png?url'
 import { AUTHOR, REPO_URL, TOOLS, VERSION, type ToolId } from './tools'
 
@@ -10,6 +11,7 @@ const PREVIEWS: Record<ToolId, string> = {
   'copy-stress': copyStressProof,
   squint: squintProof,
   concentric: concentricProof,
+  'profile-kit': profileKitProof,
 }
 
 const PRINCIPLES = ['NO ACCOUNT', 'NO UPLOAD', 'NO ANALYTICS', 'MIT LICENSED']

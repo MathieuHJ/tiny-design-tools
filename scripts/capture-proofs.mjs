@@ -91,6 +91,12 @@ try {
   await page.waitForTimeout(300)
   await saveExport(page, 'EXPORT PNG', 'concentric-proof.png')
 
+  // Profile Kit: the demo profile on all four platforms.
+  await page.goto(`${origin}/profile-kit/`)
+  await page.getByRole('button', { name: 'LOAD DEMO' }).click()
+  await page.waitForTimeout(600)
+  await saveExport(page, 'EXPORT BOARD PNG', 'profile-kit-proof.png')
+
   await context.close()
 } finally {
   await browser?.close()
