@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { focalCss, getContainedRect, getCoverCrop, normalizeFocal, validateLocalImage } from './cropMath'
+import { validateLocalImage } from '../../src/imageFile'
+import { focalCss, getContainedRect, getCoverCrop, keptShare, normalizeFocal, tightestPreset } from './cropMath'
 
 describe('Crop Proof transformation', () => {
   it('maps a normal editorial image into a mobile crop without losing the focal point', () => {
@@ -30,5 +31,30 @@ describe('Crop Proof transformation', () => {
       'Use a local PNG, JPEG, or WebP image.',
     )
     expect(validateLocalImage({ name: 'empty.png', size: 0, type: 'image/png' })).toBe('That image file is empty.')
+  })
+})
+
+describe('Crop Proof retention', () => {
+  it('reports how much of a 16:10 source each crop keeps', () => {
+    expect(keptShare(1600, 1000, { width: 9, height: 16 })).toBeCloseTo(0.3516, 3)
+    expect(keptShare(1600, 1000, { width: 16, height: 9 })).toBeCloseTo(0.9, 3)
+    expect(keptShare(1600, 1000, { width: 16, height: 10 })).toBeCloseTo(1, 5)
+  })
+
+  it('finds the crop most likely to lose the subject', () => {
+    const wide = tightestPreset(1600, 1000)
+    expect(wide.preset.id).toBe('mobile-hero')
+    expect(wide.share).toBeCloseTo(0.3516, 3)
+
+    const tall = tightestPreset(1000, 1600)
+    expect(tall.preset.id).toBe('open-graph')
+    expect(tall.share).toBeCloseTo(0.3125, 4)
+  })
+
+  it('accepts supported files and rejects oversized ones', () => {
+    expect(validateLocalImage({ name: 'a.webp', size: 2048, type: 'image/webp' })).toBeNull()
+    expect(validateLocalImage({ name: 'big.png', size: 26 * 1024 * 1024, type: 'image/png' })).toBe(
+      'Keep the image under 25 MB for reliable local export.',
+    )
   })
 })

@@ -1,4 +1,5 @@
-import { CROP_PRESETS, getCoverCrop, isEdgeBiased, normalizeFocal, type CropPreset, type FocalPoint } from './cropMath'
+import { downloadCanvas } from '../../src/download'
+import { CROP_PRESETS, getCoverCrop, isEdgeBiased, keptShare, normalizeFocal, type CropPreset, type FocalPoint } from './cropMath'
 
 const COLORS = {
   background: '#050505',
@@ -36,9 +37,10 @@ function drawCrop(
   const frameY = y + 28 + (areaHeight - 28 - frame.height) / 2
   const crop = getCoverCrop(image.naturalWidth, image.naturalHeight, frame.width, frame.height, focal)
 
+  const kept = Math.round(keptShare(image.naturalWidth, image.naturalHeight, preset) * 100)
   context.fillStyle = COLORS.muted
-  context.font = '500 14px ui-monospace, SFMono-Regular, Menlo, monospace'
-  context.fillText(`${preset.label.toUpperCase()}  ${preset.context}`, x, y + 14)
+  context.font = '500 15px ui-monospace, SFMono-Regular, Menlo, monospace'
+  context.fillText(`${preset.label.toUpperCase()}  ${preset.context}  ${kept}% KEPT`, x, y + 14)
 
   context.save()
   roundedRect(context, frameX, frameY, frame.width, frame.height, 6)
@@ -103,17 +105,17 @@ export function createProofFrame(image: HTMLImageElement, focal: FocalPoint): HT
   context.font = '560 32px Inter, ui-sans-serif, system-ui, sans-serif'
   context.fillText('Crop Proof', 42, 72)
   context.fillStyle = COLORS.muted
-  context.font = '400 18px Inter, ui-sans-serif, system-ui, sans-serif'
+  context.font = '400 19px Inter, ui-sans-serif, system-ui, sans-serif'
   context.fillText('One focal point. Six production crops.', 42, 100)
 
   context.fillStyle = signal
-  context.font = '600 13px ui-monospace, SFMono-Regular, Menlo, monospace'
+  context.font = '600 15px ui-monospace, SFMono-Regular, Menlo, monospace'
   const finding = diagnostic
     ? `EDGE CHECK  ${Math.round(safeFocal.x)}% / ${Math.round(safeFocal.y)}%`
     : `SUBJECT HELD  ${Math.round(safeFocal.x)}% / ${Math.round(safeFocal.y)}%`
   context.fillText(finding, 904, 70)
   context.fillStyle = COLORS.muted
-  context.font = '400 14px Inter, ui-sans-serif, system-ui, sans-serif'
+  context.font = '400 15px Inter, ui-sans-serif, system-ui, sans-serif'
   context.fillText('object-position across every format', 904, 96)
 
   const startX = 42
@@ -138,7 +140,7 @@ export function createProofFrame(image: HTMLImageElement, focal: FocalPoint): HT
   })
 
   context.fillStyle = COLORS.muted
-  context.font = '500 14px ui-monospace, SFMono-Regular, Menlo, monospace'
+  context.font = '500 15px ui-monospace, SFMono-Regular, Menlo, monospace'
   context.fillText('tiny-design-tools / 01', 42, 612)
   context.textAlign = 'right'
   context.fillStyle = signal
@@ -149,13 +151,5 @@ export function createProofFrame(image: HTMLImageElement, focal: FocalPoint): HT
 }
 
 export function downloadProofFrame(image: HTMLImageElement, focal: FocalPoint) {
-  const canvas = createProofFrame(image, focal)
-  canvas.toBlob((blob) => {
-    if (!blob) return
-    const anchor = document.createElement('a')
-    anchor.download = 'crop-proof-sheet.png'
-    anchor.href = URL.createObjectURL(blob)
-    anchor.click()
-    URL.revokeObjectURL(anchor.href)
-  }, 'image/png')
+  downloadCanvas(createProofFrame(image, focal), 'crop-proof-sheet.png')
 }

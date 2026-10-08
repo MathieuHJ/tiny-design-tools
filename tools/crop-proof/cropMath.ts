@@ -101,10 +101,15 @@ export function isEdgeBiased(focal: FocalPoint): boolean {
   return safeFocal.x < 8 || safeFocal.x > 92 || safeFocal.y < 8 || safeFocal.y > 92
 }
 
-export function validateLocalImage(file: Pick<File, 'name' | 'size' | 'type'>): string | null {
-  const accepted = ['image/jpeg', 'image/png', 'image/webp']
-  if (!accepted.includes(file.type)) return 'Use a local PNG, JPEG, or WebP image.'
-  if (file.size > 25 * 1024 * 1024) return 'Keep the image under 25 MB for reliable local export.'
-  if (file.size === 0) return 'That image file is empty.'
-  return null
+/** Share of the source image's area that survives a cover crop to this preset (0 to 1). */
+export function keptShare(imageWidth: number, imageHeight: number, preset: Pick<CropPreset, 'width' | 'height'>): number {
+  const crop = getCoverCrop(imageWidth, imageHeight, preset.width, preset.height, { x: 50, y: 50 })
+  return (crop.sourceWidth * crop.sourceHeight) / (imageWidth * imageHeight)
+}
+
+/** The preset that keeps the least of the source, which is where a subject is most likely to be lost. */
+export function tightestPreset(imageWidth: number, imageHeight: number): { preset: CropPreset; share: number } {
+  return CROP_PRESETS
+    .map((preset) => ({ preset, share: keptShare(imageWidth, imageHeight, preset) }))
+    .reduce((tightest, candidate) => (candidate.share < tightest.share ? candidate : tightest))
 }
