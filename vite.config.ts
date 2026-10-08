@@ -15,6 +15,7 @@ export default defineConfig({
         cropProof: resolve(import.meta.dirname, 'crop-proof/index.html'),
         copyStress: resolve(import.meta.dirname, 'copy-stress/index.html'),
         squint: resolve(import.meta.dirname, 'squint/index.html'),
+        concentric: resolve(import.meta.dirname, 'concentric/index.html'),
       },
     },
   },

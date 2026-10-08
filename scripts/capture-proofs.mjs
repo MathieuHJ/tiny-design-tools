@@ -85,6 +85,12 @@ try {
   await page.waitForTimeout(600)
   await saveExport(page, 'EXPORT PNG', 'squint-proof.png')
 
+  // Concentric: a larger radius and padding than the default, so the uneven corner is easy to see.
+  await page.goto(`${origin}/concentric/#r=40&p=16&l=2`)
+  await page.waitForSelector('.nest-svg')
+  await page.waitForTimeout(300)
+  await saveExport(page, 'EXPORT PNG', 'concentric-proof.png')
+
   await context.close()
 } finally {
   await browser?.close()

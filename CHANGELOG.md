@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0
+
+### Added
+
+- **Concentric**, a fourth tool: set an outer radius and a padding, get the inner radius that keeps nested corners concentric, and see the corner gap measured against the side gap. Copies CSS that keeps the two linked, shares its settings in the URL, and exports a 1280 × 640 comparison. See [tools/concentric](./tools/concentric/README.md).
+
+### Changed
+
+- The gallery grid fits four tools across on a wide screen.
+
 ## 0.3.0
 
 ### Added
