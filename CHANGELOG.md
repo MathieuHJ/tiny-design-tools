@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.6.0
+
+### Added
+
+- **Profile Kit: the feed.** Add up to 24 posts, drag them into order, and crop each one to the 3:4 grid tile that Instagram and TikTok show, with an outline for TikTok's disputed square crop. The grids on the mocks, the board and the exported files now show the feed.
+- Profile Kit keeps the profile, including images, in this browser so a refresh does not lose it, with a visible SAVING and KEPT IN THIS BROWSER status and a CLEAR that removes everything.
+- Drop or paste several images at once: they fill the avatar, then the banner, then the feed.
+
+### Changed
+
+- When a batch of images includes one that cannot be read, the others are still added and a single message says what was skipped.
+
 ## 0.5.0
 
 ### Added

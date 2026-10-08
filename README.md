@@ -25,7 +25,7 @@ The collection follows a permanent [black-and-white interface system](./DESIGN-S
 | [Copy Stress](./tools/copy-stress/README.md) | A live page via bookmarklet | Apply hostile copy modes | 1280 × 640 PNG diagnostic proof |
 | [Squint](./tools/squint/README.md) | A screenshot (PNG, JPEG, or WebP) | Blur strength, tone, and contrast points | 1280 × 640 PNG, original beside squinted |
 | [Concentric](./tools/concentric/README.md) | Two numbers: outer radius and padding | Move either; the inner radius resolves | CSS and a 1280 × 640 PNG comparison |
-| [Profile Kit](./tools/profile-kit/README.md) | An avatar, a banner, and profile text | Crop once; see it on four platforms | Sized avatar and banner files, a mock per platform, and a 1280 × 640 board |
+| [Profile Kit](./tools/profile-kit/README.md) | An avatar, a banner, profile text and a feed | Crop once; see it on four platforms | Sized avatar and banner files, a mock per platform, and a 1280 × 640 board |
 
 ## Run it
 

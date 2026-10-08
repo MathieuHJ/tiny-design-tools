@@ -1,17 +1,31 @@
 import { useEffect, useRef, useState } from 'react'
-import { firstImageFile } from './imageFile'
+import { allImageFiles, firstImageFile } from './imageFile'
 
 /**
  * Accept an image dropped anywhere on the page or pasted from the clipboard.
  * Returns whether a drag is currently over the window, for the drop overlay.
+ * Pass `onFiles` to receive every image in a drop or paste instead of only the first.
  */
-export function useImageIntake(onFile: (file: File) => void) {
+export function useImageIntake(onFile: (file: File) => void, onFiles?: (files: File[]) => void) {
   const [isDragging, setIsDragging] = useState(false)
   const handler = useRef(onFile)
+  const manyHandler = useRef(onFiles)
 
   useEffect(() => {
     handler.current = onFile
-  }, [onFile])
+    manyHandler.current = onFiles
+  }, [onFile, onFiles])
+
+  const deliver = (data: DataTransfer | null) => {
+    if (manyHandler.current) {
+      const files = allImageFiles(data)
+      if (files.length) manyHandler.current(files)
+      return files.length > 0
+    }
+    const file = firstImageFile(data)
+    if (file) handler.current(file)
+    return Boolean(file)
+  }
 
   useEffect(() => {
     let depth = 0
@@ -37,14 +51,10 @@ export function useImageIntake(onFile: (file: File) => void) {
       // A drop zone inside the page has already taken this file and cancelled the event.
       if (event.defaultPrevented) return
       event.preventDefault()
-      const file = firstImageFile(event.dataTransfer)
-      if (file) handler.current(file)
+      deliver(event.dataTransfer)
     }
     const onPaste = (event: ClipboardEvent) => {
-      const file = firstImageFile(event.clipboardData)
-      if (!file) return
-      event.preventDefault()
-      handler.current(file)
+      if (deliver(event.clipboardData)) event.preventDefault()
     }
 
     window.addEventListener('dragenter', onEnter)

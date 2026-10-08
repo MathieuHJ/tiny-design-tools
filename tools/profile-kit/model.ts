@@ -5,9 +5,10 @@ export type Theme = 'dark' | 'light'
 export type Asset = {
   id: string
   name: string
+  /** An object URL for the blob. Revoked when the asset is released. */
   url: string
-  /** True when the URL must be revoked once the asset is replaced. */
-  isObjectUrl: boolean
+  /** The original file, kept so the asset can be saved in the browser. */
+  blob: Blob
   image: HTMLImageElement
   width: number
   height: number
