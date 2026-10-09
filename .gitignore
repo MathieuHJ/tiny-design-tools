@@ -5,3 +5,6 @@ release/.capture-video/
 release/qa/
 release/qa-black-white/
 design-qa.md
+
+# Optional dark social cards (pnpm capture:social dark)
+release/social/*-dark.png

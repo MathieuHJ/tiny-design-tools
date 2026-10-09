@@ -57,7 +57,12 @@ function Marks({ hotspots }: { hotspots: Hotspot[] }) {
   return (
     <>
       {hotspots.map((hotspot, index) => (
-        <span className="hotspot" key={index} style={{ left: `${hotspot.x * 100}%`, top: `${hotspot.y * 100}%` }} aria-hidden="true">
+        <span
+          className={`hotspot ${hotspot.x > 0.82 ? 'is-left' : ''} ${hotspot.y < 0.08 ? 'is-low' : ''}`}
+          key={index}
+          style={{ left: `${hotspot.x * 100}%`, top: `${hotspot.y * 100}%` }}
+          aria-hidden="true"
+        >
           <i>{String(index + 1).padStart(2, '0')}</i>
         </span>
       ))}

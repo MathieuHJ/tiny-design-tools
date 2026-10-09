@@ -47,6 +47,12 @@ To regenerate the proof frames used by the gallery and READMEs, and confirm each
 pnpm capture:proofs
 ```
 
+To remake the social cards (each tool in a window frame on a soft background, 2400 × 1350, light by default or `dark`):
+
+```sh
+pnpm capture:social
+```
+
 Optional release captures with video:
 
 ```sh

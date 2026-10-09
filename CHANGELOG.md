@@ -2,6 +2,14 @@
 
 ## 0.7.0
 
+### Added
+
+- **Social cards and post copy.** `pnpm capture:social` makes a 2400 × 1350 card for each tool and the collection: the real tool, in a state worth showing, in a minimal window frame on a soft background. Copy Stress is shown running its real bookmarklet on this site's own home page. `release/social/X-POSTS.md` has the post text, a reply with the honest limitation, and alt text for every image.
+
+### Fixed
+
+- Squint: a contrast point's label is no longer clipped when the point sits near the edge of the image.
+
 ### Changed
 
 - **Photographic demos.** Every demo now uses a free Unsplash photograph instead of synthetic artwork: a lighthouse at dusk for Crop Proof, a travel landing page with a photographic hero for Squint, a photograph inside the nested card for Concentric, and a vase, a dune banner and nine posts for Profile Kit. All are credited in [CREDITS.md](./CREDITS.md); they are not MIT-licensed.

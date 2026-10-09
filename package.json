@@ -13,7 +13,8 @@
     "check": "pnpm lint && pnpm test && pnpm typecheck && pnpm build",
     "capture": "pnpm build && node scripts/capture-release.mjs",
     "capture:copy-stress": "pnpm build && node scripts/capture-copy-stress.mjs",
-    "capture:proofs": "node scripts/capture-proofs.mjs"
+    "capture:proofs": "node scripts/capture-proofs.mjs",
+    "capture:social": "node scripts/capture-social.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "2.1.10",
