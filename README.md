@@ -43,7 +43,7 @@ pnpm check
 pnpm capture
 ```
 
-`pnpm check` runs lint, the test suite, TypeScript, and the production build. `pnpm capture:proofs` drives each tool in a real browser, uses its own export button, and checks that every proof frame is exactly 1280 × 640. `pnpm capture` and `pnpm capture:copy-stress` also prepare a release video.
+`pnpm check` runs lint, the test suite, TypeScript, and the production build. `pnpm capture:proofs` drives each tool in a real browser, uses its own export button, and checks that every proof frame is exactly 1280 × 640. `pnpm capture` and `pnpm capture:copy-stress` also prepare a release video. `pnpm capture:social` makes the 2400 × 1350 cards in `release/social/`, each tool in a minimal window frame, for posting; the post text and alt text are in [release/social/X-POSTS.md](./release/social/X-POSTS.md).
 
 ## Repository shape
 
