@@ -16,11 +16,19 @@ import {
   type Scene,
   type Settings,
 } from './concentricMath'
+import cardUrl from './fixtures/card.jpg?url'
 import { LEVEL_STYLE, downloadProofFrame } from './exportProof'
 
 function NestSvg({ scene, label }: { scene: Scene; label: string }) {
+  const clip = useId()
+  const inner = scene.boxes[scene.boxes.length - 1]
   return (
     <svg className="nest-svg" viewBox={`0 0 ${VIEW.width} ${VIEW.height}`} role="img" aria-label={label}>
+      <defs>
+        <clipPath id={clip}>
+          <rect x={inner.x} y={inner.y} width={inner.width} height={inner.height} rx={inner.radius} ry={inner.radius} />
+        </clipPath>
+      </defs>
       {scene.boxes.map((box, index) => (
         <rect
           key={index}
@@ -35,9 +43,13 @@ function NestSvg({ scene, label }: { scene: Scene; label: string }) {
           vectorEffect="non-scaling-stroke"
         />
       ))}
+      <image href={cardUrl} x={inner.x} y={inner.y} width={inner.width} height={inner.height} preserveAspectRatio="xMidYMid slice" clipPath={`url(#${clip})`} />
+      {inner ? <rect x={inner.x} y={inner.y} width={inner.width} height={inner.height} rx={inner.radius} ry={inner.radius} fill="none" stroke={LEVEL_STYLE[scene.boxes.length - 1].stroke} vectorEffect="non-scaling-stroke" /> : null}
       {scene.guides.map((guide, index) => (
         <g key={index}>
+          <circle className="nest-guide-halo" cx={guide.cx} cy={guide.cy} r={guide.r} vectorEffect="non-scaling-stroke" />
           <circle className="nest-guide" cx={guide.cx} cy={guide.cy} r={guide.r} vectorEffect="non-scaling-stroke" />
+          <path className="nest-centre-halo" d={`M${guide.cx - 3} ${guide.cy}H${guide.cx + 3}M${guide.cx} ${guide.cy - 3}V${guide.cy + 3}`} vectorEffect="non-scaling-stroke" />
           <path className="nest-centre" d={`M${guide.cx - 3} ${guide.cy}H${guide.cx + 3}M${guide.cx} ${guide.cy - 3}V${guide.cy + 3}`} vectorEffect="non-scaling-stroke" />
         </g>
       ))}
@@ -197,7 +209,7 @@ export function Concentric() {
             </div>
           </div>
 
-          <button className="primary-button" type="button" onClick={() => downloadProofFrame(settings)}>EXPORT PNG</button>
+          <button className="primary-button" type="button" onClick={() => void downloadProofFrame(settings)}>EXPORT PNG</button>
         </aside>
       </section>
 

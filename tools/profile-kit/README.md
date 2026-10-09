@@ -78,7 +78,7 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://127.0.0.1:5173/profile-kit/` and choose **LOAD DEMO** to see it filled.
+Open `http://127.0.0.1:5173/profile-kit/`. A first visit opens on a demo profile, so the page is never an empty form. The demo is not saved unless you change it, and **LOAD DEMO** brings it back.
 
 ## Validation evidence
 
@@ -96,4 +96,4 @@ The browser pass covers: the bio counters at 80, 120 and 161 characters; name an
 
 ## Privacy and license
 
-Images and text are decoded and drawn in the browser. Nothing is uploaded. The profile is kept in this browser's own storage so a refresh does not lose it, and CLEAR removes it. Profile Kit and its synthetic demo artwork are MIT-licensed.
+Images and text are decoded and drawn in the browser. Nothing is uploaded. Your profile is kept in this browser's own storage once you change something, so a refresh does not lose it, and CLEAR removes it. The untouched demo is never stored. Profile Kit is MIT-licensed. The demo photographs are from Unsplash, are not MIT-licensed, and are credited in [CREDITS.md](../../CREDITS.md).

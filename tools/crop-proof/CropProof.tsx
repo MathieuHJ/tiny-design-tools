@@ -4,7 +4,7 @@ import { ACCEPT_ATTRIBUTE, validateLocalImage } from '../../src/imageFile'
 import { ToolFooter, ToolHeader } from '../../src/ToolChrome'
 import { useCopy } from '../../src/useCopy'
 import { useImageIntake } from '../../src/useImageIntake'
-import fixtureUrl from './fixtures/editorial-scene.svg?url'
+import fixtureUrl from './fixtures/lighthouse.jpg?url'
 import { CROP_PRESETS, focalCss, getContainedRect, isEdgeBiased, keptShare, normalizeFocal, tightestPreset, type FocalPoint } from './cropMath'
 import { downloadProofFrame } from './exportProof'
 
@@ -100,7 +100,7 @@ export function CropProof() {
   }
 
   const loadDemo = () => {
-    replaceImage({ src: fixtureUrl, name: 'Synthetic editorial scene', isObjectUrl: false })
+    replaceImage({ src: fixtureUrl, name: 'Lighthouse at dusk', isObjectUrl: false })
   }
 
   const placeFocal = (event: PointerEvent<HTMLDivElement>) => {
@@ -160,8 +160,9 @@ export function CropProof() {
                 CHOOSE FILE
                 <input type="file" accept={ACCEPT_ATTRIBUTE} onChange={onFile} />
               </label>
-              <button className="secondary-button" type="button" onClick={loadDemo}>
-                USE DEMO
+              <button className="gate-demo" type="button" onClick={loadDemo}>
+                <img src={fixtureUrl} alt="" />
+                <span><b>USE DEMO</b><small>Lighthouse at dusk</small></span>
               </button>
             </div>
             {fileError ? <p className="field-error" role="alert">{fileError}</p> : null}

@@ -67,4 +67,4 @@ See the [contributor guide](./CONTRIBUTING.md) for local setup, validation, brow
 
 ## License
 
-Project code and original synthetic fixtures are available under the [MIT License](./LICENSE). Direct runtime dependencies are MIT-licensed. The local development toolchain uses MIT and Apache-2.0 packages; details are in [THIRD_PARTY_LICENSES.md](./THIRD_PARTY_LICENSES.md).
+Project code and original synthetic fixtures are available under the [MIT License](./LICENSE). The demo photographs are from Unsplash, are not MIT-licensed, and are credited in [CREDITS.md](./CREDITS.md). Direct runtime dependencies are MIT-licensed. The local development toolchain uses MIT and Apache-2.0 packages; details are in [THIRD_PARTY_LICENSES.md](./THIRD_PARTY_LICENSES.md).

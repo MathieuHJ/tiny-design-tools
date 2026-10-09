@@ -24,7 +24,7 @@ The interface follows the repository's black-and-white instrument system. UI chr
 |---|---|---|
 | Load one real photograph | Drag one linked focal point | Export six repaired crops and CSS |
 
-The prepared [9-second capture](../../release/crop-proof-capture.mp4) shows this exact sequence using the original synthetic fixture.
+The prepared [9-second capture](../../release/crop-proof-capture.mp4) shows this exact sequence using the original synthetic fixture. The built-in demo is now a photograph of a lighthouse at dusk: a small subject on the horizon, with a lit house beside it, which is exactly what a tall mobile crop can lose when the focal point is a few percent off.
 
 ## Use it locally
 
@@ -33,7 +33,7 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://127.0.0.1:5173/crop-proof/`, choose an image or use the synthetic demo, then drag the crosshair onto the detail that must remain visible.
+Open `http://127.0.0.1:5173/crop-proof/`, choose an image or use the demo, then drag the crosshair onto the detail that must remain visible.
 
 The generated CSS is compatible with an image using `object-fit: cover`:
 
@@ -53,11 +53,11 @@ img {
 - strict TypeScript;
 - a production Vite build with a gallery page and static Crop Proof deep link.
 
-The representative tests cover the normal editorial fixture, the 4096 × 192 hostile panorama, zero or corrupted dimensions, out-of-range focal values, and invalid or empty local files.
+The representative tests cover the normal 16:10 image, the 4096 × 192 hostile panorama, zero or corrupted dimensions, out-of-range focal values, and invalid or empty local files.
 
 The browser pass covers:
 
-- local file selection and synthetic demo loading;
+- local file selection and demo loading;
 - clicking and dragging anywhere on the image, and keyboard movement straight after a click;
 - drop and paste input, a rejected PDF, and a corrupt image;
 - successful PNG download at exactly 1280 × 640;
@@ -80,4 +80,4 @@ The tool preserves one point, not the full bounds of a face, product, or object.
 
 ## Privacy and license
 
-The image stays in the browser. There is no upload, telemetry, storage, account, or remote API. Crop Proof and its original synthetic fixtures are MIT-licensed.
+The image stays in the browser. There is no upload, telemetry, storage, account, or remote API. Crop Proof and its original synthetic fixtures are MIT-licensed. The lighthouse photograph is by Kevin Mueller, from Unsplash, under the Unsplash License, and is credited in [CREDITS.md](../../CREDITS.md).

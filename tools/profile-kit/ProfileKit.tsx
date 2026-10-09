@@ -43,6 +43,8 @@ export function ProfileKit() {
   const [busy, setBusy] = useState(false)
   const [ready, setReady] = useState(false)
   const [saved, setSaved] = useState<SaveState>('idle')
+  const [demoSeed, setDemoSeed] = useState<ProfileData | null>(null)
+  const [seeding, setSeeding] = useState(false)
   const latest = useRef(data)
   const touched = useRef(false)
   const ids = useId()
@@ -60,6 +62,17 @@ export function ProfileKit() {
   }
 
   useEffect(() => () => releaseAll(latest.current), [])
+
+  /** The demo profile: photographs, text, and nine posts. Built fresh each time so each use owns its object URLs. */
+  const buildDemo = useCallback(async (theme: Theme): Promise<ProfileData> => {
+    const fromUrl = async (url: string, name: string) => loadAsset(await blobFromUrl(url), name)
+    const [avatar, banner, ...feed] = await Promise.all([
+      fromUrl(DEMO.avatarUrl, DEMO.avatarName),
+      fromUrl(DEMO.bannerUrl, DEMO.bannerName),
+      ...DEMO_FEED.map((post) => fromUrl(post.url, post.name)),
+    ])
+    return { avatar, banner, feed, theme, displayName: DEMO.displayName, handle: DEMO.handle, bio: DEMO.bio, link: DEMO.link }
+  }, [])
 
   // Restore what was kept in this browser. If the user has already started, or this run was superseded, drop it.
   useEffect(() => {
@@ -86,12 +99,27 @@ export function ProfileKit() {
           setSaved('saved')
         }
       }
+      if (!project && !cancelled && !touched.current) {
+        // A first visit opens on the demo, so the page is never an empty form. It is not saved unless it is edited.
+        setSeeding(true)
+        try {
+          const demo = await buildDemo('dark')
+          if (cancelled || touched.current) releaseAll(demo)
+          else {
+            setData(demo)
+            setDemoSeed(demo)
+          }
+        } catch {
+          // The demo is a courtesy. The empty tool still works.
+        }
+        setSeeding(false)
+      }
       if (!cancelled) setReady(true)
     })()
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [buildDemo])
 
   // Keep the profile in this browser, a moment after the last change, and straight away if the tab is hidden.
   const formatRef = useRef(format)
@@ -121,7 +149,7 @@ export function ProfileKit() {
   }, [])
 
   useEffect(() => {
-    if (!ready) return
+    if (!ready || !touched.current) return
     if (!isEmpty(data)) setSaved((state) => (state === 'failed' ? state : 'pending'))
     const timer = window.setTimeout(() => void persist(data, format), 400)
     return () => window.clearTimeout(timer)
@@ -130,7 +158,7 @@ export function ProfileKit() {
   useEffect(() => {
     if (!ready) return
     const onHide = () => {
-      if (document.visibilityState === 'hidden') void persist(latest.current, formatRef.current)
+      if (document.visibilityState === 'hidden' && touched.current) void persist(latest.current, formatRef.current)
     }
     document.addEventListener('visibilitychange', onHide)
     return () => document.removeEventListener('visibilitychange', onHide)
@@ -250,17 +278,11 @@ export function ProfileKit() {
 
   const loadDemo = async () => {
     try {
-      const fromUrl = async (url: string, name: string) => loadAsset(await blobFromUrl(url), name)
-      const [avatar, banner, ...feed] = await Promise.all([
-        fromUrl(DEMO.avatarUrl, 'Demo avatar'),
-        fromUrl(DEMO.bannerUrl, 'Demo banner'),
-        ...DEMO_FEED.map((post) => fromUrl(post.url, post.name)),
-      ])
+      const demo = await buildDemo(latest.current.theme)
+      // Asked for by name, so it is the user's profile now: it is kept, and labelled as kept.
       touched.current = true
-      setData((current) => {
-        releaseAll(current)
-        return { ...current, avatar, banner, feed, displayName: DEMO.displayName, handle: DEMO.handle, bio: DEMO.bio, link: DEMO.link }
-      })
+      releaseAll(latest.current)
+      setData(demo)
       setSelected(null)
       setNotice(null)
     } catch {
@@ -396,7 +418,7 @@ export function ProfileKit() {
             <button className="quiet-button" type="button" onClick={loadDemo}>LOAD DEMO</button>
             <button className="quiet-button" type="button" onClick={clearAll}>CLEAR</button>
             <p className="pk-saved" role="status">
-              {saved === 'saved' ? 'KEPT IN THIS BROWSER' : saved === 'pending' ? 'SAVING' : saved === 'failed' ? 'NOT KEPT / STORAGE FULL OR BLOCKED' : ''}
+              {seeding ? 'LOADING DEMO' : data === demoSeed ? 'DEMO / CHANGE ANYTHING, OR CLEAR TO START EMPTY' : saved === 'saved' ? 'KEPT IN THIS BROWSER' : saved === 'pending' ? 'SAVING' : saved === 'failed' ? 'NOT KEPT / STORAGE FULL OR BLOCKED' : ''}
             </p>
           </div>
           {notice ? <p className="field-error" role="alert">{notice}</p> : null}

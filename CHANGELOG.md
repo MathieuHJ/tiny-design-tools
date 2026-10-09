@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.0
+
+### Changed
+
+- **Photographic demos.** Every demo now uses a free Unsplash photograph instead of synthetic artwork: a lighthouse at dusk for Crop Proof, a travel landing page with a photographic hero for Squint, a photograph inside the nested card for Concentric, and a vase, a dune banner and nine posts for Profile Kit. All are credited in [CREDITS.md](./CREDITS.md); they are not MIT-licensed.
+- **Profile Kit opens on its demo** on a first visit, with a LOADING DEMO status. The untouched demo is never stored; changing anything keeps your profile as before. CLEAR still empties it.
+- The Crop Proof and Squint start screens show a thumbnail of the demo they will load.
+- Concentric's guides have a dark halo so they stay legible over a photograph.
+
 ## 0.6.0
 
 ### Added

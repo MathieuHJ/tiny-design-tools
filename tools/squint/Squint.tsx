@@ -140,7 +140,7 @@ export function Squint() {
     if (file) acceptFile(file)
   }
 
-  const loadDemo = () => replaceImage({ src: fixtureUrl, name: 'Synthetic landing page', isObjectUrl: false })
+  const loadDemo = () => replaceImage({ src: fixtureUrl, name: 'Travel landing page', isObjectUrl: false })
 
   const exportProof = () => {
     const squinted = squintCanvas.current
@@ -181,8 +181,9 @@ export function Squint() {
                 CHOOSE FILE
                 <input type="file" accept={ACCEPT_ATTRIBUTE} onChange={onFile} />
               </label>
-              <button className="secondary-button" type="button" onClick={loadDemo}>
-                USE DEMO
+              <button className="gate-demo" type="button" onClick={loadDemo}>
+                <img src={fixtureUrl} alt="" />
+                <span><b>USE DEMO</b><small>Travel landing page</small></span>
               </button>
             </div>
             {fileError ? <p className="field-error" role="alert">{fileError}</p> : null}
