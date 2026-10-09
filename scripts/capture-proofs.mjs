@@ -61,13 +61,13 @@ try {
   })
   const page = await context.newPage()
 
-  // Crop Proof: the synthetic scene with the subject held at 81% / 38%.
+  // Crop Proof: the lighthouse photo, with the focal point held on the lighthouse and the lit house beside it.
   await page.goto(`${origin}/crop-proof/`)
   await page.getByRole('button', { name: 'USE DEMO' }).click()
   // The grid is sized by a resize observer; wait until it covers the rendered image before aiming at it.
   await page.waitForFunction(() => (document.querySelector('.source-grid')?.getBoundingClientRect().width ?? 0) > 200)
   const grid = await page.locator('.source-grid').boundingBox()
-  await page.mouse.click(grid.x + grid.width * 0.81, grid.y + grid.height * 0.38)
+  await page.mouse.click(grid.x + grid.width * 0.6, grid.y + grid.height * 0.46)
   await page.waitForTimeout(300)
   await saveExport(page, 'EXPORT PNG', 'crop-proof-proof.png')
 
@@ -78,22 +78,22 @@ try {
   await page.waitForTimeout(500)
   await saveExport(page, 'EXPORT PNG', 'copy-stress-proof.png')
 
-  // Squint: the demo page, squinted to grey, where the call to action disappears.
+  // Squint: the travel landing page, squinted to grey, where the call to action disappears.
   await page.goto(`${origin}/squint/`)
   await page.getByRole('button', { name: 'USE DEMO' }).click()
   await page.locator('canvas').waitFor()
   await page.waitForTimeout(600)
   await saveExport(page, 'EXPORT PNG', 'squint-proof.png')
 
-  // Concentric: a larger radius and padding than the default, so the uneven corner is easy to see.
+  // Concentric: a larger radius and padding than the default, so the uneven corner is easy to see, around a photograph.
   await page.goto(`${origin}/concentric/#r=40&p=16&l=2`)
   await page.waitForSelector('.nest-svg')
-  await page.waitForTimeout(300)
+  await page.waitForTimeout(800)
   await saveExport(page, 'EXPORT PNG', 'concentric-proof.png')
 
   // Profile Kit: the demo profile on all four platforms.
   await page.goto(`${origin}/profile-kit/`)
-  await page.getByRole('button', { name: 'LOAD DEMO' }).click()
+  await page.waitForSelector('.pk-tile', { timeout: 20000 })
   await page.waitForTimeout(600)
   await saveExport(page, 'EXPORT BOARD PNG', 'profile-kit-proof.png')
 

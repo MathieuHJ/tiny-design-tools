@@ -1,4 +1,5 @@
 import { downloadCanvas } from '../../src/download'
+import cardUrl from './fixtures/card.jpg?url'
 import { VIEW, buildScene, type Scene, type Settings } from './concentricMath'
 
 const COLORS = {
@@ -19,7 +20,19 @@ export const LEVEL_STYLE = [
   { fill: '#303030', stroke: 'rgba(242,242,240,.55)' },
 ] as const
 
-function drawScene(context: CanvasRenderingContext2D, scene: Scene, x: number, y: number, width: number, height: number) {
+/** The photograph that fills the innermost box. Loaded once. */
+let photo: Promise<HTMLImageElement> | null = null
+export function loadPhoto(): Promise<HTMLImageElement> {
+  photo ??= (async () => {
+    const image = new Image()
+    image.src = cardUrl
+    await image.decode()
+    return image
+  })()
+  return photo
+}
+
+function drawScene(context: CanvasRenderingContext2D, scene: Scene, x: number, y: number, width: number, height: number, picture: HTMLImageElement | null) {
   const scale = Math.min(width / VIEW.width, height / VIEW.height)
   const originX = x + (width - VIEW.width * scale) / 2
   const originY = y + (height - VIEW.height * scale) / 2
@@ -38,14 +51,47 @@ function drawScene(context: CanvasRenderingContext2D, scene: Scene, x: number, y
     context.stroke()
   })
 
-  context.strokeStyle = 'rgba(242, 242, 240, .4)'
+  const inner = scene.boxes[scene.boxes.length - 1]
+  if (picture && inner) {
+    // Fill the box the way CSS object-fit: cover would.
+    const fit = Math.max(inner.width / picture.naturalWidth, inner.height / picture.naturalHeight)
+    const sw = inner.width / fit
+    const sh = inner.height / fit
+    context.save()
+    context.beginPath()
+    context.roundRect(inner.x, inner.y, inner.width, inner.height, inner.radius)
+    context.clip()
+    context.drawImage(picture, (picture.naturalWidth - sw) / 2, (picture.naturalHeight - sh) / 2, sw, sh, inner.x, inner.y, inner.width, inner.height)
+    context.restore()
+    context.beginPath()
+    context.roundRect(inner.x, inner.y, inner.width, inner.height, inner.radius)
+    context.strokeStyle = LEVEL_STYLE[scene.boxes.length - 1].stroke
+    context.stroke()
+  }
+
+  // A dark halo first, so the guides stay readable over a photograph.
   context.setLineDash([3 / scale * 1.4, 3 / scale * 1.4])
+  for (const [stroke, lineWidth] of [['rgba(0, 0, 0, .5)', 3 / scale], ['rgba(242, 242, 240, .4)', 1 / scale]] as const) {
+    context.strokeStyle = stroke
+    context.lineWidth = lineWidth
+    scene.guides.forEach((guide) => {
+      context.beginPath()
+      context.arc(guide.cx, guide.cy, guide.r, 0, Math.PI * 2)
+      context.stroke()
+    })
+  }
+  context.setLineDash([])
+  context.lineWidth = 3.5 / scale
+  context.strokeStyle = 'rgba(0, 0, 0, .6)'
   scene.guides.forEach((guide) => {
     context.beginPath()
-    context.arc(guide.cx, guide.cy, guide.r, 0, Math.PI * 2)
+    context.moveTo(guide.cx - 3, guide.cy)
+    context.lineTo(guide.cx + 3, guide.cy)
+    context.moveTo(guide.cx, guide.cy - 3)
+    context.lineTo(guide.cx, guide.cy + 3)
     context.stroke()
   })
-  context.setLineDash([])
+  context.lineWidth = 1 / scale
   context.strokeStyle = '#ffffff'
   scene.guides.forEach((guide) => {
     context.beginPath()
@@ -67,7 +113,7 @@ function drawScene(context: CanvasRenderingContext2D, scene: Scene, x: number, y
   context.restore()
 }
 
-export function createProofFrame(settings: Settings): HTMLCanvasElement {
+export function createProofFrame(settings: Settings, picture: HTMLImageElement | null = null): HTMLCanvasElement {
   const canvas = document.createElement('canvas')
   canvas.width = 1280
   canvas.height = 640
@@ -127,7 +173,7 @@ export function createProofFrame(settings: Settings): HTMLCanvasElement {
     context.strokeStyle = COLORS.rail
     context.lineWidth = 1
     context.strokeRect(x + 0.5, panelTop + 28.5, panelWidth - 1, panelHeight - 29)
-    drawScene(context, scene, x, panelTop + 28, panelWidth, panelHeight - 28)
+    drawScene(context, scene, x, panelTop + 28, panelWidth, panelHeight - 28, picture)
   })
 
   context.fillStyle = COLORS.muted
@@ -141,6 +187,7 @@ export function createProofFrame(settings: Settings): HTMLCanvasElement {
   return canvas
 }
 
-export function downloadProofFrame(settings: Settings) {
-  downloadCanvas(createProofFrame(settings), 'concentric-proof.png')
+export async function downloadProofFrame(settings: Settings) {
+  const picture = await loadPhoto().catch(() => null)
+  downloadCanvas(createProofFrame(settings, picture), 'concentric-proof.png')
 }

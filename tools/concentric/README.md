@@ -2,7 +2,7 @@
 
 Nested corners that actually line up.
 
-Set the outer radius and the padding. Concentric gives the inner radius, draws the same nested boxes twice, once with the inner box reusing the outer radius and once concentric, and measures the gap at the corner against the gap on the side. It exports the CSS and a 1280 × 640 PNG of the comparison.
+Set the outer radius and the padding. Concentric gives the inner radius, draws the same nested boxes twice, once with the inner box reusing the outer radius and once concentric, and measures the gap at the corner against the gap on the side. It exports the CSS and a 1280 × 640 PNG of the comparison. The innermost box holds a photograph, because a card with a picture inside is the real-world case.
 
 The interface follows the repository's black-and-white instrument system.
 
@@ -78,4 +78,4 @@ The browser pass covers typing, the sliders by keyboard, clamping at the maximum
 
 ## Privacy and license
 
-Nothing is sent anywhere. The settings live in your address bar only. Concentric is MIT-licensed.
+Nothing is sent anywhere. The settings live in your address bar only. Concentric is MIT-licensed. The photograph inside the preview card is by Nadine Marfurt, from Unsplash, under the Unsplash License, and is credited in [CREDITS.md](../../CREDITS.md).

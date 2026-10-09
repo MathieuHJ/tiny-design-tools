@@ -24,7 +24,7 @@ The interface follows the repository's black-and-white instrument system. The sc
 |---|---|---|
 | Drop a screenshot | Raise the blur and switch to grey | Export original and squint side by side |
 
-The built-in demo is a synthetic landing page whose call to action has the same luminance as the field behind it. In colour the button is the loudest thing on the page. In grey it disappears.
+The built-in demo is a travel landing page, with a photograph in its hero, whose call to action has the same luminance as the field behind it. In colour the button is the loudest thing on the page. In grey it disappears, while the headline and the photograph hold.
 
 ## How it works
 
@@ -62,4 +62,4 @@ The browser pass covers file, drop, and paste input; a PDF and a corrupt PNG; th
 
 ## Privacy and license
 
-The image stays in the browser. There is no upload, telemetry, storage, account, or remote API. Squint and its synthetic fixture are MIT-licensed.
+The image stays in the browser. There is no upload, telemetry, storage, account, or remote API. Squint and the layout of its demo page are MIT-licensed. The photograph in the demo page is by Benoît Deschasaux, from Unsplash, under the Unsplash License, and is credited in [CREDITS.md](../../CREDITS.md).

@@ -237,6 +237,25 @@ label input[type="file"] { position: absolute; inset: 0; opacity: 0; width: 100%
 .input-gate__copy > p:not(.field-error) { margin: 0; color: var(--muted); font: 500 var(--fs-label)/1.5 var(--font-mono); letter-spacing: .04em; }
 .input-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
 
+/* A demo that shows what it is: a thumbnail of the photo it will load */
+.gate-demo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 14px 5px 5px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 100ms ease;
+}
+.gate-demo:hover { border-color: var(--text); }
+.gate-demo img { display: block; width: 52px; height: 38px; object-fit: cover; border-radius: 1px; }
+.gate-demo b { display: block; font: 600 var(--fs-label)/1 var(--font-mono); letter-spacing: .06em; }
+.gate-demo small { display: block; margin-top: 5px; color: var(--muted); font: 500 var(--fs-label)/1 var(--font-mono); letter-spacing: .04em; }
+
 /* Full-page drop target for tools that take an image */
 .drop-overlay {
   position: fixed;
