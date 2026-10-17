@@ -1,6 +1,6 @@
 {
   "name": "tiny-design-tools",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,10 +14,12 @@
     "capture": "pnpm build && node scripts/capture-release.mjs",
     "capture:copy-stress": "pnpm build && node scripts/capture-copy-stress.mjs",
     "capture:proofs": "node scripts/capture-proofs.mjs",
-    "capture:social": "node scripts/capture-social.mjs"
+    "capture:social": "node scripts/capture-social.mjs",
+    "capture:contrast-pair": "node scripts/capture-contrast-pair.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "2.1.10",
+    "apca-w3": "0.1.9",
     "react": "19.1.1",
     "react-dom": "19.1.1"
   },

@@ -142,6 +142,17 @@ const scenes = [
       return regionOf(page, '.pk-workbench', { maxHeight: 590 })
     },
   },
+  {
+    id: 'contrast-pair',
+    name: 'CONTRAST PAIR',
+    tagline: 'Two colours. One readable pair.',
+    path: 'contrast-pair/',
+    viewport: { width: 1180, height: 1000 },
+    async setup(page) {
+      await page.getByRole('heading', { name: 'Contrast Pair', exact: true }).waitFor()
+      return regionOf(page, '.cp-workbench')
+    },
+  },
 ]
 
 function cardHtml({ scene, shot, size }) {

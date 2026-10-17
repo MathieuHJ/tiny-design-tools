@@ -17,6 +17,7 @@ export default defineConfig({
         squint: resolve(import.meta.dirname, 'squint/index.html'),
         concentric: resolve(import.meta.dirname, 'concentric/index.html'),
         profileKit: resolve(import.meta.dirname, 'profile-kit/index.html'),
+        contrastPair: resolve(import.meta.dirname, 'contrast-pair/index.html'),
       },
     },
   },
