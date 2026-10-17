@@ -5,7 +5,7 @@ export const SITE_URL = 'https://mathieuhj.github.io/tiny-design-tools/'
 export const AUTHOR = { name: 'Mat', role: 'Design Engineer', url: 'https://mhj.digital' } as const
 export const VERSION = pkg.version
 
-export type ToolId = 'crop-proof' | 'copy-stress' | 'squint' | 'concentric' | 'profile-kit'
+export type ToolId = 'crop-proof' | 'copy-stress' | 'squint' | 'concentric' | 'profile-kit' | 'contrast-pair'
 
 export type ToolMeta = {
   id: ToolId
@@ -70,6 +70,16 @@ export const TOOLS: readonly ToolMeta[] = [
     input: 'Avatar, banner, bio',
     output: 'Files per platform + board',
     path: 'profile-kit/',
+  },
+  {
+    id: 'contrast-pair',
+    number: '06',
+    name: 'Contrast Pair',
+    category: 'Colour contrast',
+    tagline: 'Two colours. One readable pair.',
+    input: 'Two colours or an image',
+    output: 'Passing CSS + PNG proof',
+    path: 'contrast-pair/',
   },
 ]
 

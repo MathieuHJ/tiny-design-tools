@@ -97,6 +97,11 @@ try {
   await page.waitForTimeout(600)
   await saveExport(page, 'EXPORT BOARD PNG', 'profile-kit-proof.png')
 
+  // Contrast Pair: an opaque text pair, alongside the nearest passing HSL lightness.
+  await page.goto(`${origin}/contrast-pair/`)
+  await page.getByRole('heading', { name: 'Contrast Pair', exact: true }).waitFor()
+  await saveExport(page, 'EXPORT PNG', 'contrast-pair-proof.png')
+
   await context.close()
 } finally {
   await browser?.close()

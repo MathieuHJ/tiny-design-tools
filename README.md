@@ -16,6 +16,7 @@ The collection follows a permanent [black-and-white interface system](./DESIGN-S
 - [Open Squint directly](https://mathieuhj.github.io/tiny-design-tools/squint/)
 - [Open Concentric directly](https://mathieuhj.github.io/tiny-design-tools/concentric/)
 - [Open Profile Kit directly](https://mathieuhj.github.io/tiny-design-tools/profile-kit/)
+- [Open Contrast Pair directly](https://mathieuhj.github.io/tiny-design-tools/contrast-pair/)
 
 ## Released
 
@@ -26,6 +27,7 @@ The collection follows a permanent [black-and-white interface system](./DESIGN-S
 | [Squint](./tools/squint/README.md) | A screenshot (PNG, JPEG, or WebP) | Blur strength, tone, and contrast points | 1280 × 640 PNG, original beside squinted |
 | [Concentric](./tools/concentric/README.md) | Two numbers: outer radius and padding | Move either; the inner radius resolves | CSS and a 1280 × 640 PNG comparison |
 | [Profile Kit](./tools/profile-kit/README.md) | An avatar, a banner, profile text and a feed | Crop once; see it on four platforms | Sized avatar and banner files, a mock per platform, and a 1280 × 640 board |
+| [Contrast Pair](./tools/contrast-pair/README.md) | Two colours or pixels sampled from a local image | Find the nearest passing text lightness | Passing CSS, pair link, and 1280 × 640 PNG proof |
 
 ## Run it
 
@@ -34,7 +36,7 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://127.0.0.1:5173/crop-proof/`, `/copy-stress/`, `/squint/`, `/concentric/`, or `/profile-kit/`. The root URL contains the gallery. The public build is deployed automatically from `main` by GitHub Actions.
+Open `http://127.0.0.1:5173/crop-proof/`, `/copy-stress/`, `/squint/`, `/concentric/`, `/profile-kit/`, or `/contrast-pair/`. The root URL contains the gallery. The public build is deployed automatically from `main` by GitHub Actions.
 
 ## Validate it
 
@@ -45,11 +47,13 @@ pnpm capture
 
 `pnpm check` runs lint, the test suite, TypeScript, and the production build. `pnpm capture:proofs` drives each tool in a real browser, uses its own export button, and checks that every proof frame is exactly 1280 × 640. `pnpm capture` and `pnpm capture:copy-stress` also prepare a release video. `pnpm capture:social` makes the 2400 × 1350 cards in `release/social/`, each tool in a minimal window frame, for posting; the post text and alt text are in [release/social/X-POSTS.md](./release/social/X-POSTS.md).
 
+`pnpm capture:contrast-pair` verifies the complete contrast workflow at desktop and mobile sizes, then generates its proof, screenshots, and short video.
+
 ## Repository shape
 
 - `src/`: the gallery, plus the code every tool shares: design tokens and page chrome (`tokens.css`, `ToolChrome.tsx`), the tool registry (`tools.ts`), and small helpers for copying, downloading, and image intake
 - `tools/`: one isolated folder and application entry point per released tool
-- `crop-proof/`, `copy-stress/`, `squint/`, `concentric/`, `profile-kit/`: static deep-link entries for GitHub Pages
+- `crop-proof/`, `copy-stress/`, `squint/`, `concentric/`, `profile-kit/`, `contrast-pair/`: static deep-link entries for GitHub Pages
 - `release/`: reviewed release media and draft copy
 - `DESIGN-SYSTEM.md`: visual rules shared by every tool
 
@@ -67,4 +71,4 @@ See the [contributor guide](./CONTRIBUTING.md) for local setup, validation, brow
 
 ## License
 
-Project code and original synthetic fixtures are available under the [MIT License](./LICENSE). The demo photographs are from Unsplash, are not MIT-licensed, and are credited in [CREDITS.md](./CREDITS.md). Direct runtime dependencies are MIT-licensed. The local development toolchain uses MIT and Apache-2.0 packages; details are in [THIRD_PARTY_LICENSES.md](./THIRD_PARTY_LICENSES.md).
+Project code and original synthetic fixtures are available under the [MIT License](./LICENSE). The demo photographs are from Unsplash, are not MIT-licensed, and are credited in [CREDITS.md](./CREDITS.md). Contrast Pair uses upstream APCA under its Limited W3 License; dependency-specific terms are listed in [THIRD_PARTY_LICENSES.md](./THIRD_PARTY_LICENSES.md).
