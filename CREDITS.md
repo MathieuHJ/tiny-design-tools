@@ -7,7 +7,7 @@ They are **not** covered by this repository's MIT license. The copyright in each
 | Photograph | Photographer | Used in |
 |---|---|---|
 | [Blue ceramic vase against a white background](https://unsplash.com/photos/l0ah3UBLppo) | 五玄土 ORIENTO | Profile Kit avatar |
-| [Rippled sand dunes illuminated by warm sunset light](https://unsplash.com/photos/DS6lRtglcOM) | Edwin Rodriguez | Profile Kit banner |
+| [Rippled sand dunes illuminated by warm sunset light](https://unsplash.com/photos/DS6lRtglcOM) | Edwin Rodriguez | Profile Kit banner, Overlay Check demo |
 | [Lighthouse on rocky coast at dusk](https://unsplash.com/photos/f3MIpowlx48) | Kevin Mueller | Crop Proof demo |
 | [Golden sunlight bathes the vast desert sand dunes](https://unsplash.com/photos/BhtjXDK_4V8) | Benoît Deschasaux | Squint demo, Profile Kit post 03 |
 | [A lighthouse stands on a cliff overlooking the ocean](https://unsplash.com/photos/1mpPrALdQRQ) | Pascal Bullan | Profile Kit post 01 |

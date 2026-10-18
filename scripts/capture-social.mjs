@@ -153,6 +153,18 @@ const scenes = [
       return regionOf(page, '.cp-workbench')
     },
   },
+  {
+    id: 'overlay-check',
+    name: 'OVERLAY CHECK',
+    tagline: 'Readable text over real photographs.',
+    path: 'overlay-check/',
+    viewport: { width: 1280, height: 1100 },
+    async setup(page) {
+      await page.getByRole('button', { name: /USE MINIMUM/ }).click()
+      await page.waitForFunction(() => document.querySelector('.oc-verdict strong')?.textContent === 'REGION PASSES')
+      return regionOf(page, '.oc-workbench')
+    },
+  },
 ]
 
 function cardHtml({ scene, shot, size }) {

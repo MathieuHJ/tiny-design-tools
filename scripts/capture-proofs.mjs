@@ -102,6 +102,12 @@ try {
   await page.getByRole('heading', { name: 'Contrast Pair', exact: true }).waitFor()
   await saveExport(page, 'EXPORT PNG', 'contrast-pair-proof.png')
 
+  // Overlay Check: the source photograph with the minimum passing scrim.
+  await page.goto(`${origin}/overlay-check/`)
+  await page.getByRole('button', { name: /USE MINIMUM/ }).click()
+  await page.waitForFunction(() => document.querySelector('.oc-verdict strong')?.textContent === 'REGION PASSES')
+  await saveExport(page, 'EXPORT PROOF PNG', 'overlay-check-proof.png')
+
   await context.close()
 } finally {
   await browser?.close()
