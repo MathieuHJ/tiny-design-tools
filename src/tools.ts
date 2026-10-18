@@ -5,7 +5,7 @@ export const SITE_URL = 'https://mathieuhj.github.io/tiny-design-tools/'
 export const AUTHOR = { name: 'Mat', role: 'Design Engineer', url: 'https://mhj.digital' } as const
 export const VERSION = pkg.version
 
-export type ToolId = 'crop-proof' | 'copy-stress' | 'squint' | 'concentric' | 'profile-kit' | 'contrast-pair'
+export type ToolId = 'crop-proof' | 'copy-stress' | 'squint' | 'concentric' | 'profile-kit' | 'contrast-pair' | 'overlay-check'
 
 export type ToolMeta = {
   id: ToolId
@@ -80,6 +80,16 @@ export const TOOLS: readonly ToolMeta[] = [
     input: 'Two colours or an image',
     output: 'Passing CSS + PNG proof',
     path: 'contrast-pair/',
+  },
+  {
+    id: 'overlay-check',
+    number: '07',
+    name: 'Overlay Check',
+    category: 'Text over imagery',
+    tagline: 'Readable text over real photographs.',
+    input: 'A photo and your text',
+    output: 'CSS scrim + PNG proof',
+    path: 'overlay-check/',
   },
 ]
 

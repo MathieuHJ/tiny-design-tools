@@ -5,6 +5,7 @@ import cropProofProof from '../release/crop-proof-proof.png?url'
 import profileKitProof from '../release/profile-kit-proof.png?url'
 import squintProof from '../release/squint-proof.png?url'
 import contrastPairProof from '../release/contrast-pair-proof.png?url'
+import overlayCheckProof from '../release/overlay-check-proof.png?url'
 import { AUTHOR, REPO_URL, TOOLS, VERSION, type ToolId } from './tools'
 
 const PREVIEWS: Record<ToolId, string> = {
@@ -14,6 +15,7 @@ const PREVIEWS: Record<ToolId, string> = {
   concentric: concentricProof,
   'profile-kit': profileKitProof,
   'contrast-pair': contrastPairProof,
+  'overlay-check': overlayCheckProof,
 }
 
 const PRINCIPLES = ['NO ACCOUNT', 'NO UPLOAD', 'NO ANALYTICS', 'MIT LICENSED']

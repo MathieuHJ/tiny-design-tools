@@ -18,6 +18,7 @@ export default defineConfig({
         concentric: resolve(import.meta.dirname, 'concentric/index.html'),
         profileKit: resolve(import.meta.dirname, 'profile-kit/index.html'),
         contrastPair: resolve(import.meta.dirname, 'contrast-pair/index.html'),
+        overlayCheck: resolve(import.meta.dirname, 'overlay-check/index.html'),
       },
     },
   },

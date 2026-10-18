@@ -1,0 +1,45 @@
+.oc-workbench { grid-template-columns: minmax(0, 1fr) 286px; }
+.oc-stage-panel { padding: 18px; }
+.oc-stage-heading { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 18px; }
+.oc-stage-heading > div:first-child { min-width: 0; }
+.oc-stage-heading p:not(.step-label) { margin: 8px 0 0; max-width: 450px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font: 400 11px/1.4 var(--font-mono); }
+.oc-image-stage { position: relative; width: 100%; overflow: hidden; background: var(--inset); touch-action: pan-y; }
+.oc-image-stage canvas { display: block; width: 100%; height: 100%; }
+.oc-text-region { position: absolute; border: 1px dashed #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.7); }
+.oc-region-move { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: transparent; cursor: move; touch-action: none; }
+.oc-region-tag { position: absolute; top: -21px; left: -1px; padding: 4px 6px; border: 1px solid #777; background: #070707; color: #f2f2f0; font: 500 10px/1 var(--font-mono); letter-spacing: .06em; pointer-events: none; white-space: nowrap; }
+.oc-region-resize { position: absolute; right: -1px; bottom: -1px; width: 30px; height: 30px; padding: 0; border: 1px solid #fff; border-radius: 2px; background: #070707; color: white; font: 400 18px/1 Arial, sans-serif; cursor: nwse-resize; touch-action: none; z-index: 2; }
+.oc-worst-mark { position: absolute; width: 14px; height: 14px; transform: translate(-50%, -50%); border: 1px solid white; border-radius: 50%; box-shadow: 0 0 0 1px black; pointer-events: none; }
+.oc-interaction-note { margin: 12px 0 0; color: var(--muted); font: 500 10px/1.5 var(--font-mono); letter-spacing: .05em; }
+.oc-loading { min-height: 420px; display: grid; place-items: center; color: var(--muted); border: 1px solid var(--line); font: 500 10px/1 var(--font-mono); }
+.oc-readouts { display: grid; grid-template-columns: 1fr 1fr 170px; gap: 18px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line); }
+.oc-readouts .readout { margin-top: 14px; font-size: 30px; }
+.oc-readouts .readout > span { font-size: 14px; color: var(--muted); letter-spacing: 0; }
+.oc-readouts > div > span { display: block; margin-top: 12px; color: var(--muted); font: 400 10px/1.4 var(--font-mono); }
+.oc-verdict { padding: 14px; border: 1px solid var(--line-strong); }
+.oc-verdict.is-fail { border-style: dashed; }
+.oc-verdict strong { display: block; margin-top: 16px; font: 500 12px/1.4 var(--font-mono); }
+.oc-controls { padding: 18px; gap: 20px; }
+.oc-file-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+.oc-file-actions .secondary-button { padding-inline: 10px; }
+.oc-controls label.step-label { display: block; }
+.oc-controls textarea { display: block; width: 100%; min-height: 78px; margin-top: 10px; padding: 10px; resize: vertical; border: 1px solid var(--line-strong); border-radius: 0; color: var(--text); background: var(--inset); font: 400 13px/1.5 var(--font-sans); }
+.oc-controls .segmented { margin-top: 10px; }
+.oc-controls .segmented--row button { padding-inline: 6px; text-align: center; font-size: 10px; letter-spacing: .02em; }
+.oc-slider-label { display: flex !important; justify-content: space-between; gap: 6px; }
+.oc-controls input[type="range"] { display: block; width: 100%; min-height: 24px; margin: 12px 0 0; accent-color: var(--text); }
+.oc-minimum { width: 100%; margin-top: 12px; }
+.oc-export-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; }
+.oc-export-actions .primary-button { grid-column: 1 / -1; }
+.oc-details { margin-top: 30px; border-top: 1px solid var(--line); }
+.oc-details summary { min-height: 48px; padding: 17px 0; cursor: pointer; color: var(--muted); font: 500 10px/1.4 var(--font-mono); letter-spacing: .06em; }
+.oc-details-body { display: grid; gap: 16px; padding-block: 8px 20px; color: var(--muted); font-size: 12px; line-height: 1.6; max-width: 850px; }
+.oc-details-body p { margin: 0; }
+.oc-details-body a { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 3px; }
+.oc-details pre { max-width: 100%; overflow: auto; margin: 0; padding: 14px; border: 1px solid var(--line); background: var(--inset); color: var(--text); font: 400 11px/1.6 var(--font-mono); }
+.oc-region-fields { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 0; padding: 16px; border: 1px solid var(--line); }
+.oc-region-fields label { display: grid; gap: 8px; font: 500 10px/1 var(--font-mono); }
+.oc-region-fields input { min-width: 0; width: 100%; min-height: 36px; border: 1px solid var(--line-strong); background: var(--inset); color: var(--text); padding: 6px; font: 400 13px/1 var(--font-mono); }
+@media (max-width: 1000px) { .oc-workbench { grid-template-columns: 1fr; } .oc-stage-panel { border-right: 0; border-bottom: 1px solid var(--line); } .oc-controls { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 24px; } .oc-file-actions { grid-column: 1 / -1; } .oc-export-actions { align-self: end; } }
+@media (max-width: 560px) { .oc-stage-panel { padding: 16px 14px; } .oc-stage-heading { align-items: flex-start; } .oc-stage-heading > div:first-child { width: 100%; } .oc-stage-heading p:not(.step-label) { white-space: normal; overflow-wrap: anywhere; } .oc-readouts { grid-template-columns: 1fr 1fr; } .oc-verdict { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 10px; } .oc-verdict strong, .oc-readouts .oc-verdict > span { margin-top: 0; } .oc-controls { display: flex; } .oc-controls > div { width: 100%; } .oc-controls textarea { font-size: 16px; } .oc-region-fields { grid-template-columns: 1fr 1fr; } .oc-region-fields input { min-height: 44px; font-size: 16px; } }
+@media (pointer: coarse), (max-width: 560px) { .oc-region-resize { width: 44px; height: 44px; } .oc-controls input[type="range"] { min-height: 44px; } }

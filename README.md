@@ -17,6 +17,7 @@ The collection follows a permanent [black-and-white interface system](./DESIGN-S
 - [Open Concentric directly](https://mathieuhj.github.io/tiny-design-tools/concentric/)
 - [Open Profile Kit directly](https://mathieuhj.github.io/tiny-design-tools/profile-kit/)
 - [Open Contrast Pair directly](https://mathieuhj.github.io/tiny-design-tools/contrast-pair/)
+- [Open Overlay Check directly](https://mathieuhj.github.io/tiny-design-tools/overlay-check/)
 
 ## Released
 
@@ -28,6 +29,7 @@ The collection follows a permanent [black-and-white interface system](./DESIGN-S
 | [Concentric](./tools/concentric/README.md) | Two numbers: outer radius and padding | Move either; the inner radius resolves | CSS and a 1280 × 640 PNG comparison |
 | [Profile Kit](./tools/profile-kit/README.md) | An avatar, a banner, profile text and a feed | Crop once; see it on four platforms | Sized avatar and banner files, a mock per platform, and a 1280 × 640 board |
 | [Contrast Pair](./tools/contrast-pair/README.md) | Two colours or pixels sampled from a local image | Find the nearest passing text lightness | Passing CSS, pair link, and 1280 × 640 PNG proof |
+| [Overlay Check](./tools/overlay-check/README.md) | A local photo and your text | Place a text region and find its minimum passing scrim | CSS gradient, full-size image, and 1280 × 640 PNG proof |
 
 ## Run it
 
@@ -36,7 +38,7 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://127.0.0.1:5173/crop-proof/`, `/copy-stress/`, `/squint/`, `/concentric/`, `/profile-kit/`, or `/contrast-pair/`. The root URL contains the gallery. The public build is deployed automatically from `main` by GitHub Actions.
+Open `http://127.0.0.1:5173/crop-proof/`, `/copy-stress/`, `/squint/`, `/concentric/`, `/profile-kit/`, `/contrast-pair/`, or `/overlay-check/`. The root URL contains the gallery. The public build is deployed automatically from `main` by GitHub Actions.
 
 ## Validate it
 
@@ -49,11 +51,13 @@ pnpm capture
 
 `pnpm capture:contrast-pair` verifies the complete contrast workflow at desktop and mobile sizes, then generates its proof, screenshots, and short video.
 
+`pnpm capture:overlay-check` verifies source-pixel analysis, real CSS rendering, text placement, exports, and mobile use, then generates the same release artifacts for Overlay Check.
+
 ## Repository shape
 
 - `src/`: the gallery, plus the code every tool shares: design tokens and page chrome (`tokens.css`, `ToolChrome.tsx`), the tool registry (`tools.ts`), and small helpers for copying, downloading, and image intake
 - `tools/`: one isolated folder and application entry point per released tool
-- `crop-proof/`, `copy-stress/`, `squint/`, `concentric/`, `profile-kit/`, `contrast-pair/`: static deep-link entries for GitHub Pages
+- `crop-proof/`, `copy-stress/`, `squint/`, `concentric/`, `profile-kit/`, `contrast-pair/`, `overlay-check/`: static deep-link entries for GitHub Pages
 - `release/`: reviewed release media and draft copy
 - `DESIGN-SYSTEM.md`: visual rules shared by every tool
 
