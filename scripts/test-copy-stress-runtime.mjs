@@ -76,6 +76,19 @@ try {
     await page.locator('[data-copy-stress-mode-button="original"]').click()
     await settle()
   }
+  await page.evaluate(() => {
+    document.documentElement.style.position = 'absolute'
+    document.documentElement.style.width = '100%'
+    window.__copyStress.open()
+  })
+  await settle()
+  assert.equal((await report()).status, 'inspected', 'Positioned document root terminates container traversal')
+  await page.evaluate(() => {
+    document.documentElement.style.removeProperty('position')
+    document.documentElement.style.removeProperty('width')
+    window.__copyStress.open()
+  })
+  await settle()
   const count = result.findings.length
   await page.evaluate(() => window.__copyStress.open())
   await settle()

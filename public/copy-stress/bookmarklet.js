@@ -83,6 +83,7 @@
     let ancestor = element
     while (ancestor) {
       yield ancestor
+      if (ancestor === document.documentElement) break
       const position = getComputedStyle(ancestor).position
       // Positioned popovers need not fit their unrelated DOM ancestors.
       if (position === 'fixed') break
