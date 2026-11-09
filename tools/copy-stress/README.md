@@ -52,7 +52,7 @@ Tests distinguish constrained, broken layouts from safe wrapping and fitting con
 
 ## Validation
 
-`pnpm check` runs lint, unit tests, TypeScript and the production build. Run `pnpm test:copy-stress-runtime` separately for real Chromium regressions against synthetic DOM fixtures. Install the Playwright Chromium build with `pnpm exec playwright install chromium`, or set `CHROMIUM_PATH` to an existing Chromium executable. `COMPARE_BASELINE=1` also prints a comparison with the pre-fix runtime. The runtime remains ASCII-safe for pages with no declared encoding.
+`pnpm check` runs lint, unit tests, TypeScript and the production build. Run `pnpm test:copy-stress-runtime` separately for real Chromium regressions against synthetic DOM fixtures. Install the Playwright Chromium build with `pnpm exec playwright install chromium`, or set `CHROMIUM_PATH` to an existing Chromium executable. `COMPARE_BASELINE=1` also prints a comparison with the pre-fix runtime. Run `node scripts/test-copy-stress-ui.mjs` after `pnpm build` to check all six simulation modes at desktop and 390px, resize behavior, and real PNG exports. Both browser suites run in the pull-request workflow. The runtime remains ASCII-safe for pages with no declared encoding.
 
 ## Limits
 

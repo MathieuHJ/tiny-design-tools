@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   browser:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
@@ -34,6 +34,17 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm check
+      - id: validate
+        run: pnpm check
       - name: Run runtime regression and baseline comparison
         run: COMPARE_BASELINE=1 pnpm test:copy-stress-runtime
+      - name: Check simulation and PNG exports
+        if: ${{ !cancelled() && steps.validate.outcome == 'success' }}
+        run: node scripts/test-copy-stress-ui.mjs
+      - name: Save browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: copy-stress-browser-evidence
+          path: test-results/copy-stress/
+          retention-days: 7

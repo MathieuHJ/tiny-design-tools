@@ -10,7 +10,8 @@ The regression suite uses synthetic versions of all eight examples plus passing 
 
 ## Verification
 
-- `pnpm check`: lint, all 90 unit tests, TypeScript and production build passed.
-- `pnpm test:copy-stress-runtime`: browser regressions are implemented but could not execute in the editing environment because Chromium's required socket could not be created. The supported browser also could not reach the local test server. No browser pass rate or measured before/after detection percentage is claimed.
-- Run the browser suite before merging. Use `COMPARE_BASELINE=1 pnpm test:copy-stress-runtime` to print the old and new expansion findings for the same synthetic fixture.
-- No production merge or deployment is part of this change.
+- Initial `pnpm check`: lint, all 90 unit tests, TypeScript and production build passed.
+- The real-browser runtime suite covers the synthetic feedback cases and compares the old and new expansion findings. The UI suite covers all six modes at desktop and 390px, resizing, and real 1280 × 640 PNG exports.
+- Browser checks run on the Copy Stress browser regression pull-request workflow. Its logs and artifacts provide the verification record; a test definition alone is not evidence of a pass.
+- No measured detection percentage is claimed. A long string or emoji-only name can be valid when the layout fits it.
+- Production deployment follows passing checks and explicit maintainer approval.
