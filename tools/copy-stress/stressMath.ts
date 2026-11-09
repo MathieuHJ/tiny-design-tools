@@ -1,4 +1,4 @@
-export const STRESS_MODES = ['expansion', 'empty', 'accented', 'rtl', 'unbroken'] as const
+export const STRESS_MODES = ['original', 'expansion', 'empty', 'accented', 'rtl', 'unbroken'] as const
 
 export type StressMode = typeof STRESS_MODES[number]
 
@@ -8,6 +8,7 @@ const accentedCharacters: Record<string, string> = {
 }
 
 export const modeLabels: Record<StressMode, string> = {
+  original: 'ORIGINAL',
   expansion: '2× COPY',
   empty: 'EMPTY',
   accented: 'ACCENTED',
@@ -17,6 +18,8 @@ export const modeLabels: Record<StressMode, string> = {
 
 export function stressText(text: string, mode: StressMode) {
   switch (mode) {
+    case 'original':
+      return text
     case 'expansion':
       return `${text} · ${text}`
     case 'empty':
@@ -24,7 +27,11 @@ export function stressText(text: string, mode: StressMode) {
     case 'accented':
       return `[${[...text].map((character) => accentedCharacters[character] ?? character).join('')}]`
     case 'rtl':
-      return `‏${[...text].reverse().join('')}`
+      // Keep emoji ZWJ sequences, flags and combining marks intact. This is a visual
+      // direction stress test, not a translation or a simulation of natural Arabic.
+      return `‏${(typeof Intl.Segmenter === 'function'
+        ? [...new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(text)].map(({ segment }) => segment)
+        : [...text]).reverse().join('')}`
     case 'unbroken':
       return `${text.replace(/[^\p{L}\p{N}]/gu, '').toUpperCase()}WITHNOBREAKS`
   }

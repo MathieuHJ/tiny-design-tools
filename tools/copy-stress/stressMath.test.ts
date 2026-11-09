@@ -4,9 +4,15 @@ import { isOverflowing, selectorFor, stressText } from './stressMath'
 
 describe('Copy Stress primitives', () => {
   it('produces distinct hostile fixtures without mutating the source value', () => {
+    expect(stressText('👨‍👩‍👧‍👦 café', 'original')).toBe('👨‍👩‍👧‍👦 café')
     expect(stressText('Share file', 'expansion')).toBe('Share file · Share file')
     expect(stressText('Share file', 'empty')).toBe('')
     expect(stressText('Share file', 'unbroken')).toBe('SHAREFILEWITHNOBREAKS')
+  })
+
+  it('preserves Unicode letters in unbroken copy and graphemes in RTL copy', () => {
+    expect(stressText('München 東京', 'unbroken')).toBe('MÜNCHEN東京WITHNOBREAKS')
+    expect(stressText('A👨‍👩‍👧‍👦🇧🇪e\u0301', 'rtl')).toBe('\u200fe\u0301🇧🇪👨‍👩‍👧‍👦A')
   })
 
   it('detects horizontal and vertical layout overflow with a small tolerance', () => {

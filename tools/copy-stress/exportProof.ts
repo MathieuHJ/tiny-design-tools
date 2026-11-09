@@ -34,9 +34,9 @@ export function downloadCopyStressProof(mode: StressMode, findings: ProofFinding
   context.stroke()
 
   text(context, 'TDT / 02', 66, 82, 14)
-  text(context, 'COPY STRESS / PROOF', 66, 156, 15, true)
+  text(context, 'COPY STRESS / SIMULATION', 66, 156, 15, true)
   text(context, modeLabels[mode], 66, 196, 34)
-  text(context, `${findings.length} VISIBLE ${findings.length === 1 ? 'FAILURE' : 'FAILURES'}`, 66, 226, 14, true)
+  text(context, `${findings.length} ${findings.length === 1 ? 'FINDING' : 'FINDINGS'} TO REVIEW`, 66, 226, 14, true)
 
   context.strokeStyle = '#555555'
   context.strokeRect(66.5, 272.5, 652, 248)
@@ -65,7 +65,7 @@ export function downloadCopyStressProof(mode: StressMode, findings: ProofFinding
     text(context, finding.selector, 1005, y + 22, 13, true)
   })
 
-  text(context, 'LOCAL / NO UPLOAD', 66, 574, 13, true)
+  text(context, 'DEMO FIXTURE / NOT A REPORT OF YOUR PAGE', 66, 574, 13, true)
   text(context, 'tiny-design-tools / 02', 1010, 574, 13, true)
 
   downloadCanvas(canvas, `copy-stress-${mode}-proof.png`)
