@@ -66,6 +66,7 @@ try {
   for (const id of ['emoji', 'safe', 'nested', 'labelled', 'aria', 'hidden', 'code', 'safe-price', 'safe-button', 'tooltip-card', 'fixed-tip', 'absolute-card', 'absolute-tip']) assert(!result.findings.some((f) => f.selector === `#${id}`), `${id} is safe`)
   assert(result.findings.some((f) => f.selector === '#legal' && f.severity === 'review' && f.note.includes('not a WCAG')))
   assert(result.findings.some((f) => f.selector === '#tiny\\:colon' && f.type === 'SMALL TEXT'))
+  assert(!result.findings.some((f) => f.selector === 'body' || f.selector === 'html'), 'Safe viewport-positioned tooltips do not flag page containers')
   console.log('Original fixture findings:', result.findings.map((f) => `${f.selector}: ${f.type}`).join('; '))
   if (process.env.COMPARE_BASELINE) {
     await page.locator('[data-copy-stress-mode-button="expansion"]').click()

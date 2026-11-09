@@ -86,7 +86,20 @@
       const position = getComputedStyle(ancestor).position
       // Positioned popovers need not fit their unrelated DOM ancestors.
       if (position === 'fixed') break
-      ancestor = position === 'absolute' ? ancestor.offsetParent : ancestor.parentElement
+      if (position !== 'absolute') {
+        ancestor = ancestor.parentElement
+        continue
+      }
+      const offsetParent = ancestor.offsetParent
+      // A static body can be offsetParent even when the viewport is the actual
+      // containing block. Do not compare a viewport-positioned tooltip to body margins.
+      const bodyStyle = offsetParent === document.body ? getComputedStyle(offsetParent) : null
+      const bodyContains = bodyStyle && (bodyStyle.position !== 'static' ||
+        bodyStyle.transform !== 'none' || bodyStyle.perspective !== 'none' ||
+        bodyStyle.filter !== 'none' || /layout|paint|strict|content/.test(bodyStyle.contain) ||
+        /transform|perspective|filter/.test(bodyStyle.willChange))
+      ancestor = !offsetParent || (offsetParent === document.body && !bodyContains)
+        ? document.documentElement : offsetParent
     }
   }
   const collectFindings = () => {
