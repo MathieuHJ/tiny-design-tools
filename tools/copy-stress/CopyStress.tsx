@@ -48,13 +48,29 @@ export function CopyStress() {
   }, [bookmarkletUrl])
 
   useEffect(() => {
-    const frame = requestAnimationFrame(() => {
-      const next = [...(surface.current?.querySelectorAll<HTMLElement>('[data-stress-target]') ?? [])]
-        .map((element) => findingFor(element, mode))
-        .filter((finding): finding is Finding => Boolean(finding))
-      setFindings(next)
-    })
-    return () => cancelAnimationFrame(frame)
+    let frame = 0
+    let active = true
+    const inspect = () => {
+      if (!active) return
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        const next = [...(surface.current?.querySelectorAll<HTMLElement>('[data-stress-target]') ?? [])]
+          .map((element) => findingFor(element, mode))
+          .filter((finding): finding is Finding => Boolean(finding))
+        setFindings((previous) => JSON.stringify(previous) === JSON.stringify(next) ? previous : next)
+      })
+    }
+    const observer = new ResizeObserver(inspect)
+    if (surface.current) observer.observe(surface.current)
+    window.addEventListener('resize', inspect)
+    void document.fonts.ready.then(inspect)
+    inspect()
+    return () => {
+      active = false
+      cancelAnimationFrame(frame)
+      observer.disconnect()
+      window.removeEventListener('resize', inspect)
+    }
   }, [mode])
 
   // Clicking the launcher here would stress this page, not the one the designer wants to review.
@@ -70,7 +86,7 @@ export function CopyStress() {
 
       <section className="tool-intro">
         <h1>Copy Stress</h1>
-        <p>Stress real interface copy. Make the broken elements visible.</p>
+        <p>Stress real interface copy. Find layout and readability issues to review.</p>
       </section>
 
       <section className="bookmarklet-gate" aria-labelledby="bookmarklet-heading">
@@ -167,7 +183,7 @@ export function CopyStress() {
 
       <section className="copy-proof-note">
         <ArrowsOutCardinal size={17} weight="thin" aria-hidden="true" />
-        <p>The bookmarklet checks regular page text only. Pages with strict script policies can block it.</p>
+        <p>Use ORIGINAL to check existing copy, then stress it. The bookmarklet flags overflow, missing visible required-field labels and text below 10px for review. It is not a complete accessibility audit. Strict script policies can block it.</p>
       </section>
 
       <ToolFooter id="copy-stress" />

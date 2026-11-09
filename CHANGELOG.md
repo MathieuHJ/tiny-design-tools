@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- Copy Stress checks original copy, catches inline text overflowing constrained containers, and reviews missing visible labels on required fields and text below 10px. The small-text threshold is a readability heuristic, not a WCAG verdict.
+- Copy Stress restores the original page direction, clears reports on reset, cancels pending work on close, and keeps outlines aligned while scrolling and resizing. RTL stress preserves joined emoji and combining marks.
+- The Copy Stress simulation updates its findings when resized and labels exported PNGs as demo summaries. Real-page findings are exported by the bookmarklet as JSON.
+
 ## 0.7.0
 
 ### Added

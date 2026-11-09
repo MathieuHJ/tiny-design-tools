@@ -9,6 +9,7 @@
     "preview": "vite preview --host 127.0.0.1",
     "lint": "eslint .",
     "test": "vitest run",
+    "test:copy-stress-runtime": "node scripts/test-copy-stress-runtime.mjs",
     "typecheck": "tsc --noEmit",
     "check": "pnpm lint && pnpm test && pnpm typecheck && pnpm build",
     "capture": "pnpm build && node scripts/capture-release.mjs",
