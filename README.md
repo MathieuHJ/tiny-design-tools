@@ -76,3 +76,9 @@ See the [contributor guide](./CONTRIBUTING.md) for local setup, validation, brow
 ## License
 
 Project code and original synthetic fixtures are available under the [MIT License](./LICENSE). The demo photographs are from Unsplash, are not MIT-licensed, and are credited in [CREDITS.md](./CREDITS.md). Contrast Pair uses upstream APCA under its Limited W3 License; dependency-specific terms are listed in [THIRD_PARTY_LICENSES.md](./THIRD_PARTY_LICENSES.md).
+
+## Discovery
+
+Each built HTML entry includes a readable summary and links before JavaScript starts, plus structured data describing the collection or the individual free browser tool. React replaces that initial content with the interactive interface. The build also emits `sitemap.xml` with the gallery and all released tool URLs. These documents derive from `src/tools.ts`; they add no analytics or remote service.
+
+The canonical public URL remains `SITE_URL`. Forks should update that value and the canonical/Open Graph URLs in the HTML entries before publishing under another identity. A `robots.txt` in this project subdirectory would not control crawling: GitHub Pages crawler rules belong at the host root. Structured data and a sitemap help describe the site; they do not claim a Business Hub profile or guarantee inclusion in ChatGPT or search results.

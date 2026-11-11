@@ -1,13 +1,14 @@
 import { resolve } from 'node:path'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+import { discoveryPlugin } from './src/discovery'
 
 const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1]
 const pagesBase = repositoryName?.endsWith('.github.io') ? '/' : `/${repositoryName}/`
 
 export default defineConfig({
   base: repositoryName ? pagesBase : './',
-  plugins: [react()],
+  plugins: [react(), discoveryPlugin()],
   build: {
     rollupOptions: {
       input: {
